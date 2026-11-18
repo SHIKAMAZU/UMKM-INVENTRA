@@ -5,7 +5,9 @@ import { env } from '../config/env.js';
 import { cloudinaryEnabled } from '../config/cloudinary.js';
 import { AppError } from '../utils/AppError.js';
 
-export const uploadRootDir = path.resolve(process.cwd(), env.uploadDir);
+export const uploadRootDir = process.env.VERCEL
+  ? path.join('/tmp', env.uploadDir)
+  : path.resolve(process.cwd(), env.uploadDir);
 fs.mkdirSync(uploadRootDir, { recursive: true });
 
 const allowedMimeTypes = new Map([
