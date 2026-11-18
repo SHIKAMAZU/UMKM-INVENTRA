@@ -22,17 +22,17 @@ INVENTRA adalah sistem manajemen informasi stok barang toko berbasis web dan mob
 | Backend | Node.js, Express, Zod, JWT |
 | Database | PostgreSQL |
 | Storage | Cloudinary / folder lokal |
-| Deployment | Netlify atau Vercel, Render, Aiven |
+| Deployment | Netlify, Vercel, Aiven |
 | Version control | Git dan GitHub |
 
 ## Struktur Repository
 
 ```text
 .
-├── backend/          # REST API Express + PostgreSQL
+├── backend/          # REST API Express + PostgreSQL (serverless di Vercel)
 ├── flutter/          # Aplikasi Flutter (web, Android, desktop)
 ├── docs/             # SRS, diagram, dan panduan deployment
-├── render.yaml       # Blueprint backend Render
+├── render.yaml       # Blueprint alternatif backend Render
 ├── netlify.toml      # Konfigurasi deploy frontend Netlify
 └── README.md
 ```
@@ -91,7 +91,7 @@ flutter build web --release
 Panduan lengkap ada di [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Ringkasan platform:
 
 - Frontend: Netlify (utama) atau Vercel.
-- Backend: Render Web Service.
+- Backend: Vercel (serverless function melalui `backend/api/index.js`).
 - Database: Aiven for PostgreSQL.
 - Gambar produk: Cloudinary.
 

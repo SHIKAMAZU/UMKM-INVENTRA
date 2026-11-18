@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -271,7 +271,7 @@
 </ul>
 
 <h2>1.5 Ruang Lingkup Dokumen</h2>
-<p>Dokumen ini membahas sistem INVENTRA untuk satu toko dan satu gudang. Cakupan utama meliputi autentikasi, dashboard, kategori, supplier, produk, gambar produk, pergerakan stok, transaksi penjualan, riwayat penjualan, pembatalan penjualan, notifikasi stok menipis, laporan ringkasan, dan profil pengguna. Pembahasan deployment mencakup GitHub, Netlify atau Vercel, Render, Aiven for PostgreSQL, dan Cloudinary.</p>
+<p>Dokumen ini membahas sistem INVENTRA untuk satu toko dan satu gudang. Cakupan utama meliputi autentikasi, dashboard, kategori, supplier, produk, gambar produk, pergerakan stok, transaksi penjualan, riwayat penjualan, pembatalan penjualan, notifikasi stok menipis, laporan ringkasan, dan profil pengguna. Pembahasan deployment mencakup GitHub, Netlify, Vercel, Aiven for PostgreSQL, dan Cloudinary.</p>
 
 <h2>1.6 Sistematika Penulisan</h2>
 <table>
@@ -333,7 +333,7 @@
   <tr><td>Basis data</td><td>PostgreSQL, psql, pgAdmin</td><td>Menyimpan data dan mengelola skema.</td></tr>
   <tr><td>Pengujian API</td><td>Node.js fetch, Postman</td><td>Menguji endpoint dan skenario validasi.</td></tr>
   <tr><td>Version control</td><td>Git, GitHub</td><td>Mengelola riwayat kode dan branching.</td></tr>
-  <tr><td>Deployment</td><td>Netlify atau Vercel, Render, Aiven</td><td>Hosting frontend, backend, dan basis data.</td></tr>
+  <tr><td>Deployment</td><td>Netlify, Vercel, Aiven</td><td>Hosting frontend, backend, dan basis data.</td></tr>
   <tr><td>Penyimpanan gambar</td><td>Cloudinary</td><td>Menyimpan gambar produk pada lingkungan produksi.</td></tr>
   <tr><td>Dokumentasi</td><td>Word, PDF, draw.io/SVG</td><td>Menyusun SRS dan diagram.</td></tr>
 </table>
@@ -584,7 +584,7 @@
 
 <h3>3.4.3 Kebutuhan Eksternal</h3>
 <ul>
-  <li>Layanan hosting Netlify/Vercel, Render, Aiven, dan Cloudinary harus dapat diakses melalui HTTPS.</li>
+  <li>Layanan hosting Netlify, Vercel, Aiven, dan Cloudinary harus dapat diakses melalui HTTPS.</li>
   <li>Aplikasi mengikuti ketentuan layanan masing-masing penyedia, termasuk batas kuota free tier.</li>
   <li>Data pengguna tidak boleh dibagikan tanpa izin. Password dan secret tidak boleh ditulis di repository.</li>
   <li>Aplikasi tidak memproses pembayaran sehingga belum memerlukan integrasi regulasi pembayaran.</li>
@@ -788,51 +788,51 @@
 
 <h2>4.3 Struktur Project</h2>
 <pre>sistem-manajemen-stok/
-â”œâ”€â”€ backend/
-â”‚   â”œâ”€â”€ database/
-â”‚   â”‚   â”œâ”€â”€ schema.sql
-â”‚   â”‚   â”œâ”€â”€ seed.sql
-â”‚   â”‚   â”œâ”€â”€ migration_sales.sql
-â”‚   â”‚   â”œâ”€â”€ migration_suppliers.sql
-â”‚   â”‚   â””â”€â”€ ERD.png
-â”‚   â”œâ”€â”€ scripts/
-â”‚   â”‚   â”œâ”€â”€ db-init.mjs
-â”‚   â”‚   â””â”€â”€ smoke-test.mjs
-â”‚   â”œâ”€â”€ src/
-â”‚   â”‚   â”œâ”€â”€ config/
-â”‚   â”‚   â”œâ”€â”€ controllers/
-â”‚   â”‚   â”œâ”€â”€ db/
-â”‚   â”‚   â”œâ”€â”€ middlewares/
-â”‚   â”‚   â”œâ”€â”€ routes/
-â”‚   â”‚   â”œâ”€â”€ utils/
-â”‚   â”‚   â”œâ”€â”€ validators/
-â”‚   â”‚   â”œâ”€â”€ app.js
-â”‚   â”‚   â””â”€â”€ server.js
-â”‚   â”œâ”€â”€ uploads/
-â”‚   â”œâ”€â”€ api.md
-â”‚   â”œâ”€â”€ package.json
-â”‚   â””â”€â”€ README.md
-â”œâ”€â”€ flutter/
-â”‚   â”œâ”€â”€ lib/
-â”‚   â”‚   â”œâ”€â”€ config/
-â”‚   â”‚   â”œâ”€â”€ models/
-â”‚   â”‚   â”œâ”€â”€ screens/
-â”‚   â”‚   â”œâ”€â”€ services/
-â”‚   â”‚   â””â”€â”€ main.dart
-â”‚   â”œâ”€â”€ android/
-â”‚   â”œâ”€â”€ ios/
-â”‚   â”œâ”€â”€ web/
-â”‚   â”œâ”€â”€ test/
-â”‚   â”œâ”€â”€ netlify-build.sh
-â”‚   â””â”€â”€ pubspec.yaml
-â”œâ”€â”€ docs/
-â”‚   â”œâ”€â”€ SRS_INVENTRA.docx
-â”‚   â”œâ”€â”€ SRS_INVENTRA.pdf
-â”‚   â””â”€â”€ assets/
-â”œâ”€â”€ render.yaml
-â”œâ”€â”€ netlify.toml
-â”œâ”€â”€ README.md
-â””â”€â”€ .gitignore</pre>
+├── backend/
+│   ├── database/
+│   │   ├── schema.sql
+│   │   ├── seed.sql
+│   │   ├── migration_sales.sql
+│   │   ├── migration_suppliers.sql
+│   │   └── ERD.png
+│   ├── scripts/
+│   │   ├── db-init.mjs
+│   │   └── smoke-test.mjs
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── db/
+│   │   ├── middlewares/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   ├── validators/
+│   │   ├── app.js
+│   │   └── server.js
+│   ├── uploads/
+│   ├── api.md
+│   ├── package.json
+│   └── README.md
+├── flutter/
+│   ├── lib/
+│   │   ├── config/
+│   │   ├── models/
+│   │   ├── screens/
+│   │   ├── services/
+│   │   └── main.dart
+│   ├── android/
+│   ├── ios/
+│   ├── web/
+│   ├── test/
+│   ├── netlify-build.sh
+│   └── pubspec.yaml
+├── docs/
+│   ├── SRS_INVENTRA.docx
+│   ├── SRS_INVENTRA.pdf
+│   └── assets/
+├── render.yaml
+├── netlify.toml
+├── README.md
+└── .gitignore</pre>
 
 <p class="table-title">Tabel 4.10 Lapisan Backend</p>
 <table>
@@ -958,7 +958,7 @@
   <tr><td><code>main</code></td><td>Versi stabil yang siap dinilai/di-deploy.</td></tr>
   <tr><td><code>develop</code></td><td>Integrasi fitur sebelum masuk ke main.</td></tr>
   <tr><td><code>feature/srs</code></td><td>Penyusunan dokumen SRS, diagram, dan lampiran.</td></tr>
-  <tr><td><code>feature/deployment</code></td><td>Konfigurasi Netlify/Vercel, Render, Aiven, dan environment produksi.</td></tr>
+  <tr><td><code>feature/deployment</code></td><td>Konfigurasi Netlify, Vercel, Aiven, dan environment produksi.</td></tr>
 </table>
 <p>Konvensi commit yang digunakan: <code>feat:</code> untuk fitur, <code>fix:</code> untuk perbaikan, <code>docs:</code> untuk dokumentasi, dan <code>chore:</code> untuk konfigurasi. Perubahan digabungkan melalui pull request ke <code>develop</code>, kemudian ke <code>main</code> setelah pengujian.</p>
 
@@ -974,22 +974,22 @@
   <b>Peringatan:</b> <code>database/schema.sql</code> menghapus tabel lama sebelum membuat ulang. Jangan jalankan pada database produksi yang sudah berisi data. Gunakan <code>DB_RESET=true</code> hanya pada database kosong.
 </div>
 
-<h3>4.5.4 Backend Render</h3>
+<h3>4.5.4 Backend Vercel</h3>
 <ol>
-  <li>Hubungkan repository GitHub ke Render dan pilih <i>Web Service</i>.</li>
-  <li>Set root directory <code>backend</code>, build command <code>npm ci</code>, dan start command <code>npm start</code>.</li>
+  <li>Hubungkan repository GitHub ke Vercel, lalu impor repository sebagai project baru.</li>
+  <li>Set root directory <code>backend</code>. Backend berjalan sebagai serverless function melalui <code>api/index.js</code> sehingga tidak memerlukan start command.</li>
   <li>Tambahkan environment variable Aiven, <code>JWT_SECRET</code>, <code>DB_SSL=true</code>, dan kredensial Cloudinary.</li>
-  <li>Set health check path <code>/api/health</code>.</li>
+  <li>Endpoint health tersedia di <code>/api/health</code>.</li>
   <li>Deploy dan uji endpoint health sebelum menghubungkan frontend.</li>
 </ol>
-<p>File <code>render.yaml</code> sudah disediakan sebagai blueprint. Free tier Render dapat mengalami <i>cold start</i> sehingga permintaan pertama terasa lebih lambat.</p>
+<p>File <code>vercel.json</code> mengatur rewrite seluruh permintaan ke serverless function. Free tier Vercel dapat mengalami <i>cold start</i> sehingga permintaan pertama terasa lebih lambat.</p>
 
 <h3>4.5.5 Frontend Netlify atau Vercel</h3>
 <p><b>Netlify (utama):</b></p>
 <ol>
   <li>Hubungkan repository GitHub ke Netlify.</li>
   <li>Set base directory <code>flutter</code>, build command <code>bash netlify-build.sh</code>, dan publish directory <code>build/web</code>.</li>
-  <li>Tambahkan environment variable <code>API_BASE_URL</code> yang berisi URL backend Render, misalnya <code>https://inventra-api.onrender.com</code>.</li>
+  <li>Tambahkan environment variable <code>API_BASE_URL</code> yang berisi URL backend Vercel, misalnya <code>https://inventra-api.vercel.app</code>.</li>
   <li>Deploy. File <code>netlify.toml</code> sudah mengatur redirect SPA ke <code>index.html</code>.</li>
 </ol>
 <p><b>Vercel (alternatif):</b> build web secara lokal dengan <code>flutter build web --release --dart-define=API_BASE_URL=...</code>, lalu deploy folder <code>build/web</code> sebagai static site. Pastikan URL API menggunakan HTTPS dan endpoint CORS dapat diakses.</p>
@@ -1002,7 +1002,7 @@
 <table>
   <tr><th style="width:26%;">Variabel</th><th style="width:24%;">Contoh</th><th>Keterangan</th></tr>
   <tr><td><code>NODE_ENV</code></td><td>production</td><td>Mode aplikasi.</td></tr>
-  <tr><td><code>PORT</code></td><td>3000</td><td>Port backend; Render dapat mengatur otomatis.</td></tr>
+  <tr><td><code>PORT</code></td><td>3000</td><td>Port backend; tidak dipakai pada Vercel.</td></tr>
   <tr><td><code>DB_HOST</code></td><td>pg-xxxx.aivencloud.com</td><td>Host Aiven.</td></tr>
   <tr><td><code>DB_PORT</code></td><td>12345</td><td>Port Aiven.</td></tr>
   <tr><td><code>DB_NAME</code></td><td>defaultdb</td><td>Nama database Aiven.</td></tr>
@@ -1030,7 +1030,7 @@
 <table>
   <tr><th style="width:24%;">Layanan</th><th>URL</th><th style="width:18%;">Status</th></tr>
   <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td><td>Diisi setelah deploy</td></tr>
-  <tr><td>Backend API</td><td>[https://inventra-api.onrender.com]</td><td>Diisi setelah deploy</td></tr>
+  <tr><td>Backend API</td><td>[https://inventra-api.vercel.app]</td><td>Diisi setelah deploy</td></tr>
   <tr><td>Repository</td><td>https://github.com/SHIKAMAZU/UMKM-INVENTRA</td><td>Aktif</td></tr>
   <tr><td>Database</td><td>Aiven PostgreSQL (private)</td><td>Kredensial tidak dipublikasikan</td></tr>
 </table>
@@ -1055,7 +1055,7 @@
   <li>Kebutuhan fungsional dan non-fungsional telah dianalisis dan dipetakan ke fitur, API, basis data, serta rancangan antarmuka.</li>
   <li>Basis data tujuh tabel telah dinormalisasi hingga 3NF, dilengkapi foreign key, check constraint, indeks, trigger, dan transaksi atomik.</li>
   <li>Pengujian blackbox, widget test, analisis statis, dan build web menunjukkan hasil lulus tanpa cacat kritis.</li>
-  <li>Deployment dirancang menggunakan GitHub, Netlify atau Vercel, Render, Aiven PostgreSQL, dan Cloudinary.</li>
+  <li>Deployment dirancang menggunakan GitHub, Netlify, Vercel, Aiven PostgreSQL, dan Cloudinary.</li>
   <li>Dokumen ini dapat menjadi acuan pengembangan, pengujian, dan penilaian proyek.</li>
 </ol>
 
@@ -1099,7 +1099,7 @@ flutter pub get
 flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:3000
 
 # Build web produksi
-flutter build web --release --dart-define=API_BASE_URL=https://inventra-api.onrender.com
+flutter build web --release --dart-define=API_BASE_URL=https://inventra-api.vercel.app
 
 # Pengujian
 cd backend
@@ -1136,7 +1136,7 @@ flutter test</pre>
   <tr><th style="width:24%;">Layanan</th><th>URL</th></tr>
   <tr><td>Repository GitHub</td><td>https://github.com/SHIKAMAZU/UMKM-INVENTRA</td></tr>
   <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td></tr>
-  <tr><td>Backend API</td><td>[https://inventra-api.onrender.com]</td></tr>
+  <tr><td>Backend API</td><td>[https://inventra-api.vercel.app]</td></tr>
   <tr><td>Dokumentasi API</td><td><code>/api/health</code> dan <code>backend/api.md</code></td></tr>
 </table>
 
@@ -1147,7 +1147,7 @@ flutter test</pre>
   <li>PostgreSQL Global Development Group. <i>PostgreSQL Documentation</i>. https://www.postgresql.org/docs</li>
   <li>Aiven. <i>Aiven for PostgreSQL Documentation</i>. https://docs.aiven.io</li>
   <li>Netlify. <i>Netlify Documentation</i>. https://docs.netlify.com</li>
-  <li>Render. <i>Render Documentation</i>. https://render.com/docs</li>
+  <li>Vercel. <i>Vercel Documentation</i>. https://vercel.com/docs</li>
   <li>Cloudinary. <i>Cloudinary Documentation</i>. https://cloudinary.com/documentation</li>
   <li>OWASP. <i>JSON Web Token Cheat Sheet</i>. https://cheatsheetseries.owasp.org</li>
 </ol>

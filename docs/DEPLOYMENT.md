@@ -1,12 +1,12 @@
 # Panduan Deployment INVENTRA
 
-Dokumen ini menjelaskan langkah deploy INVENTRA ke layanan gratis: **Aiven for PostgreSQL**, **Render** untuk backend, serta **Netlify** (utama) atau **Vercel** untuk frontend Flutter Web.
+Dokumen ini menjelaskan langkah deploy INVENTRA ke layanan gratis: **Aiven for PostgreSQL**, **Vercel** untuk backend, serta **Netlify** untuk frontend Flutter Web.
 
 > Ganti semua placeholder `[GANTI_...]` dengan nilai milik Anda. Jangan commit file `.env` atau kredensial ke repository.
 
 ## 1. Prasyarat
 
-- Akun GitHub, Aiven, Render, dan Netlify/Vercel.
+- Akun GitHub, Aiven, Vercel, dan Netlify.
 - Repository GitHub berisi proyek ini.
 - Git terpasang di komputer.
 - Flutter hanya diperlukan untuk build lokal; Netlify membangun web secara otomatis.
@@ -38,34 +38,37 @@ npm run db:init
 
 `db:init` tidak menghapus skema jika tabel `users` sudah ada. Gunakan `DB_RESET=true` hanya jika ingin mengulang dari awal karena `schema.sql` bersifat destruktif.
 
-## 3. Deploy Backend ke Render
+## 3. Deploy Backend ke Vercel
 
-### Opsi A: Blueprint
-
-1. Push repository ke GitHub.
-2. Di Render, pilih **New > Blueprint**.
-3. Hubungkan repository. Render membaca `render.yaml`.
-4. Isi environment variable yang diminta:
+1. Login ke Vercel dengan akun GitHub.
+2. Pilih **Add New > Project**, lalu impor repository INVENTRA.
+3. Pada halaman konfigurasi:
+   - **Root Directory:** `backend`
+   - **Framework Preset:** `Other`
+   - Build Command dan Output Directory dikosongkan.
+4. Buka **Environment Variables**, lalu isi:
+   - `NODE_ENV` = `production`
    - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
+   - `DB_SSL` = `true`
+   - `DB_ADMIN_DB` = `defaultdb`
+   - `JWT_SECRET` = string acak panjang
+   - `JWT_EXPIRES_IN` = `1d`
+   - `UPLOAD_DIR` = `uploads`
    - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` (disarankan)
-5. Deploy dan tunggu status **Live**.
-6. Buka `https://[NAMA-SERVICE].onrender.com/api/health`; respons harus `database: connected`.
+5. Klik **Deploy** dan tunggu status **Ready**.
+6. Buka `https://[NAMA-PROJECT].vercel.app/api/health`; respons harus `database: connected`.
 
-### Opsi B: Manual
-
-- **Root Directory:** `backend`
-- **Build Command:** `npm ci`
-- **Start Command:** `npm start`
-- **Health Check Path:** `/api/health`
-- **Environment:** salin isi `backend/.env.production.example`, lalu isi nilainya.
-- `JWT_SECRET` harus string acak panjang; jangan gunakan nilai contoh.
-- `DB_SSL=true` wajib untuk Aiven.
+Backend berjalan sebagai serverless function melalui `backend/api/index.js` dan `backend/vercel.json`. `JWT_SECRET` harus string acak panjang; jangan gunakan nilai contoh.
 
 Catat URL backend, misalnya:
 
 ```text
-https://inventra-api.onrender.com
+https://inventra-api.vercel.app
 ```
+
+### Alternatif: Render
+
+File `render.yaml` tetap tersedia jika ingin memakai Render. Pilih **New > Blueprint**, hubungkan repository, lalu isi environment variable yang sama seperti di atas.
 
 ## 4. Deploy Frontend ke Netlify
 
@@ -76,7 +79,7 @@ https://inventra-api.onrender.com
    - Build command: `bash netlify-build.sh`
    - Publish directory: `build/web`
 4. Tambahkan environment variable:
-   - `API_BASE_URL=https://[NAMA-SERVICE].onrender.com`
+   - `API_BASE_URL=https://[NAMA-PROJECT].vercel.app`
 5. Deploy. Netlify akan mengunduh Flutter stable jika belum tersedia, lalu menjalankan:
 
 ```bash
@@ -104,7 +107,7 @@ flutter/build/web
 **Environment Variable:**
 
 ```text
-API_BASE_URL=https://[NAMA-SERVICE].onrender.com
+API_BASE_URL=https://[NAMA-PROJECT].vercel.app
 ```
 
 Tambahkan rewrite semua rute ke `index.html` agar refresh halaman tidak 404. Jika menggunakan `vercel.json`:
@@ -130,13 +133,13 @@ Tambahkan rewrite semua rute ke `index.html` agar refresh halaman tidak 404. Jik
 | `JWT_EXPIRES_IN` | `1d` | Masa berlaku token |
 | `UPLOAD_DIR` | `uploads` | Penyimpanan lokal sementara |
 | `CLOUDINARY_*` | kredensial Cloudinary | Agar gambar tidak hilang saat restart |
-| `API_BASE_URL` | `https://inventra-api.onrender.com` | Hanya untuk build frontend |
+| `API_BASE_URL` | `https://inventra-api.vercel.app` | Hanya untuk build frontend |
 
 ## 7. Uji Setelah Deploy
 
 ```powershell
 cd "C:\sistem manajemen informasi stok barang toko\backend"
-$env:API_URL="https://[NAMA-SERVICE].onrender.com"
+$env:API_URL="https://[NAMA-PROJECT].vercel.app"
 npm test
 ```
 
@@ -150,8 +153,8 @@ Uji manual:
 
 ## 8. Catatan Produksi
 
-- Render free tier dapat *cold start*; permintaan pertama bisa lambat.
-- Penyimpanan lokal Render bersifat sementara. Gunakan Cloudinary untuk gambar.
+- Vercel free tier dapat *cold start*; permintaan pertama bisa lambat.
+- Penyimpanan lokal pada serverless Vercel bersifat sementara (folder `/tmp`). Gunakan Cloudinary untuk gambar.
 - `cors()` saat ini terbuka untuk memudahkan pengembangan. Untuk produksi, batasi origin ke domain frontend.
 - `DB_SSL=true` memakai `rejectUnauthorized: false` agar kompatibel dengan sertifikat Aiven. Untuk keamanan lebih tinggi, gunakan CA certificate resmi.
 - Jangan menjalankan `DB_RESET=true` pada database produksi.
