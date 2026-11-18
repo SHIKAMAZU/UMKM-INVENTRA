@@ -1,0 +1,1157 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Software Requirements Specification INVENTRA</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.4cm 2.2cm 2.4cm 2.5cm;
+  }
+  body {
+    font-family: "Times New Roman", serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #111827;
+  }
+  h1, h2, h3, h4 {
+    font-family: Arial, sans-serif;
+    color: #0b5d4e;
+    line-height: 1.25;
+  }
+  h1 {
+    font-size: 18pt;
+    margin: 0 0 16pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2pt solid #0f766e;
+    page-break-before: always;
+  }
+  h1.no-break {
+    page-break-before: avoid;
+  }
+  h2 {
+    font-size: 14pt;
+    margin: 18pt 0 8pt 0;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12pt;
+    margin: 14pt 0 6pt 0;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-size: 11pt;
+    margin: 12pt 0 4pt 0;
+    page-break-after: avoid;
+  }
+  p {
+    margin: 0 0 8pt 0;
+    text-align: justify;
+  }
+  ul, ol {
+    margin: 0 0 8pt 0;
+    padding-left: 18pt;
+  }
+  li {
+    margin-bottom: 3pt;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 6pt 0 10pt 0;
+    font-family: Arial, sans-serif;
+    font-size: 9.5pt;
+  }
+  th, td {
+    border: 0.75pt solid #94a3b8;
+    padding: 4pt 5pt;
+    vertical-align: top;
+  }
+  th {
+    background: #e6f7ef;
+    color: #0b5d4e;
+    font-weight: bold;
+    text-align: center;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  .center {
+    text-align: center;
+  }
+  .small {
+    font-size: 10pt;
+  }
+  .muted {
+    color: #475569;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+  .no-break {
+    page-break-inside: avoid;
+  }
+  .cover {
+    text-align: center;
+    margin-top: 2.8cm;
+  }
+  .cover p {
+    text-align: center;
+  }
+  .cover-top {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    letter-spacing: 2pt;
+    color: #475569;
+    margin-bottom: 18pt;
+  }
+  .cover-title {
+    font-family: Arial, sans-serif;
+    font-size: 22pt;
+    font-weight: bold;
+    color: #0b5d4e;
+    margin-bottom: 10pt;
+  }
+  .cover-subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 24pt;
+  }
+  .cover-brand {
+    font-family: Arial, sans-serif;
+    font-size: 42pt;
+    font-weight: 800;
+    letter-spacing: 3pt;
+    color: #0f766e;
+    margin: 18pt 0 6pt 0;
+  }
+  .cover-line {
+    width: 55%;
+    margin: 18pt auto 22pt auto;
+    border-top: 2pt solid #0f766e;
+  }
+  .cover-name {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 8pt 0 2pt 0;
+  }
+  .cover-school {
+    font-family: Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #0b5d4e;
+    margin-top: 42pt;
+  }
+  .figure {
+    text-align: center;
+    margin: 10pt 0 12pt 0;
+    page-break-inside: avoid;
+  }
+  .figure img {
+    max-width: 100%;
+    border: 0.75pt solid #cbd5e1;
+  }
+  .figure .diagram {
+    width: 100%;
+  }
+  .figure .tall {
+    width: 86%;
+  }
+  .caption {
+    font-family: Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #475569;
+    text-align: center;
+    margin-top: 4pt;
+  }
+  .table-title {
+    font-family: Arial, sans-serif;
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #0b5d4e;
+    text-align: center;
+    margin: 10pt 0 3pt 0;
+  }
+  .note {
+    background: #f0fdf4;
+    border-left: 4pt solid #0f766e;
+    padding: 8pt 10pt;
+    margin: 8pt 0 10pt 0;
+    font-size: 10.5pt;
+  }
+  .warning {
+    background: #fff7ed;
+    border-left: 4pt solid #b45309;
+    padding: 8pt 10pt;
+    margin: 8pt 0 10pt 0;
+    font-size: 10.5pt;
+  }
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9.5pt;
+    background: #f1f5f9;
+    padding: 1pt 3pt;
+  }
+  pre {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.3;
+    background: #f8fafc;
+    border: 0.75pt solid #cbd5e1;
+    padding: 8pt;
+    white-space: pre-wrap;
+  }
+  .toc-placeholder {
+    font-size: 11pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="cover-top">DOKUMEN</p>
+  <p class="cover-title">SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</p>
+  <p class="cover-subtitle">SISTEM MANAJEMEN INFORMASI STOK BARANG TOKO</p>
+  <p class="cover-brand">INVENTRA</p>
+  <div class="cover-line"></div>
+  <p>Disusun oleh:</p>
+  <p class="cover-name">Setya Risky Adi Nugroho</p>
+  <p>Kelas XI RPL 5</p>
+  <p>Mata Pelajaran: Manajemen Proyek Perangkat Lunak</p>
+  <p class="cover-school">SMK TARUNA BHAKTI</p>
+  <p>TAHUN AJARAN 2026/2027</p>
+</div>
+
+<div class="page-break"></div>
+
+<h1 class="no-break">KATA PENGANTAR</h1>
+<p>Puji syukur ke hadirat Tuhan Yang Maha Esa karena atas rahmat dan karunia-Nya, penyusunan dokumen <i>Software Requirements Specification</i> (SRS) untuk sistem INVENTRA dapat diselesaikan dengan baik. Dokumen ini disusun sebagai acuan kebutuhan perangkat lunak, desain sistem, pengujian, dan deployment pada proyek Sistem Manajemen Informasi Stok Barang Toko.</p>
+<p>INVENTRA dirancang untuk membantu pengelola toko mencatat data produk, kategori, supplier, pergerakan stok, transaksi penjualan, dan laporan secara terpusat. Dokumen ini menjelaskan latar belakang, metode pengembangan, kebutuhan fungsional dan non-fungsional, rancangan sistem, struktur basis data, skenario pengujian, serta rencana deployment.</p>
+<p>Penyusun menyadari bahwa dokumen ini masih memiliki keterbatasan. Oleh karena itu, kritik dan saran yang membangun sangat diperlukan untuk penyempurnaan dokumen maupun aplikasi. Ucapan terima kasih disampaikan kepada guru mata pelajaran, pembimbing, serta pihak-pihak yang telah membantu proses penyusunan dokumen ini.</p>
+<p>Semoga dokumen ini bermanfaat dan dapat menjadi referensi yang jelas dalam pengembangan serta evaluasi sistem INVENTRA.</p>
+<p style="margin-top: 28pt; text-align: right;">November 2026<br><br><br>Penyusun</p>
+
+<h1>DAFTAR ISI</h1>
+<p class="toc-placeholder">[[TOC]]</p>
+
+<h1>BAB I PENDAHULUAN</h1>
+
+<h2>1.1 Latar Belakang</h2>
+<p>Perkembangan usaha retail dan toko kebutuhan sehari-hari mendorong peningkatan volume data yang harus dikelola setiap hari. Data produk, kategori, supplier, stok masuk, stok keluar, dan transaksi penjualan tidak lagi efektif jika dicatat secara manual pada buku atau lembar kerja yang terpisah. Pencatatan manual rentan terhadap kesalahan hitung, data ganda, kehilangan catatan, serta keterlambatan penyusunan laporan.</p>
+<p>Masalah utama yang sering muncul adalah ketidaksesuaian antara jumlah stok fisik dan jumlah stok tercatat. Kondisi ini dapat menyebabkan barang tidak tersedia saat dibutuhkan, penjualan terhenti, atau sebaliknya terjadi penumpukan stok. Selain itu, pemilik toko membutuhkan informasi stok menipis dan riwayat transaksi secara cepat untuk mengambil keputusan pembelian ulang.</p>
+<p>Pemanfaatan aplikasi manajemen stok berbasis web dan mobile menjadi salah satu solusi yang sesuai. Aplikasi dapat menyimpan data secara terpusat, membatasi akses berdasarkan peran, mencatat setiap perubahan stok, serta menyajikan laporan secara otomatis. Dengan demikian, proses operasional toko menjadi lebih cepat, konsisten, dan mudah diaudit.</p>
+<p>INVENTRA adalah sistem manajemen informasi stok barang toko yang dikembangkan menggunakan Flutter untuk antarmuka web dan Android, Express untuk REST API, serta PostgreSQL sebagai basis data. Sistem ini menyediakan fitur autentikasi, pengelolaan master data, pergerakan stok, transaksi penjualan, pembatalan penjualan, notifikasi stok menipis, dan laporan ringkasan.</p>
+<p>Dokumen SRS ini disusun agar kebutuhan sistem terdokumentasi secara terstruktur. Dokumen menjadi dasar bagi pengembang, penguji, dan pihak sekolah dalam memahami ruang lingkup, batasan, rancangan, serta kriteria keberhasilan sistem INVENTRA.</p>
+
+<h2>1.2 Rumusan Masalah</h2>
+<ol>
+  <li>Bagaimana merancang sistem manajemen stok barang toko yang dapat mencatat master data, pergerakan stok, dan transaksi penjualan secara terpusat?</li>
+  <li>Bagaimana memastikan perubahan stok konsisten dengan transaksi penjualan dan memiliki riwayat yang dapat diaudit?</li>
+  <li>Bagaimana membatasi hak akses antara admin dan staff agar data master serta pembatalan transaksi hanya dapat dilakukan oleh pihak yang berwenang?</li>
+  <li>Bagaimana merancang basis data yang mendukung kebutuhan sistem dan menjaga integritas data?</li>
+  <li>Bagaimana menyiapkan aplikasi agar dapat diuji, di-deploy ke web, dan menggunakan basis data cloud?</li>
+</ol>
+
+<h2>1.3 Tujuan Penulisan Dokumen</h2>
+<ol>
+  <li>Menjelaskan kebutuhan fungsional dan non-fungsional sistem INVENTRA secara lengkap.</li>
+  <li>Menjadi acuan dalam perancangan antarmuka, API, basis data, dan alur bisnis aplikasi.</li>
+  <li>Menjadi dasar penyusunan skenario pengujian <i>blackbox</i> dan penilaian kesesuaian hasil proyek.</li>
+  <li>Menjelaskan rencana deployment aplikasi web, backend, dan basis data cloud.</li>
+</ol>
+
+<h2>1.4 Manfaat Penulisan</h2>
+<ul>
+  <li><b>Bagi sekolah:</b> menjadi contoh penerapan analisis kebutuhan dan dokumentasi perangkat lunak pada proyek siswa RPL.</li>
+  <li><b>Bagi pengembang:</b> menjadi panduan implementasi yang konsisten antara kebutuhan, kode program, dan pengujian.</li>
+  <li><b>Bagi pengguna:</b> memastikan aplikasi yang dibangun sesuai dengan kebutuhan operasional toko dan mudah digunakan.</li>
+</ul>
+
+<h2>1.5 Ruang Lingkup Dokumen</h2>
+<p>Dokumen ini membahas sistem INVENTRA untuk satu toko dan satu gudang. Cakupan utama meliputi autentikasi, dashboard, kategori, supplier, produk, gambar produk, pergerakan stok, transaksi penjualan, riwayat penjualan, pembatalan penjualan, notifikasi stok menipis, laporan ringkasan, dan profil pengguna. Pembahasan deployment mencakup GitHub, Netlify atau Vercel, Render, Aiven for PostgreSQL, dan Cloudinary.</p>
+
+<h2>1.6 Sistematika Penulisan</h2>
+<table>
+  <tr><th style="width:18%;">Bab</th><th>Isi</th></tr>
+  <tr><td>BAB I</td><td>Pendahuluan yang berisi latar belakang, rumusan masalah, tujuan, manfaat, ruang lingkup, dan sistematika penulisan.</td></tr>
+  <tr><td>BAB II</td><td>Metode pengembangan Agile/Scrum, tahapan, jadwal, alasan pemilihan, serta tools yang digunakan.</td></tr>
+  <tr><td>BAB III</td><td>Analisis kebutuhan fungsional dan non-fungsional, karakteristik pengguna, kamus data, rancangan antarmuka, interaksi modul, dan batasan.</td></tr>
+  <tr><td>BAB IV</td><td>Desain sistem, diagram, ERD, skema tabel, struktur project, pengujian blackbox, dan deployment.</td></tr>
+  <tr><td>BAB V</td><td>Kesimpulan, saran pengembangan, dan penutup.</td></tr>
+  <tr><td>LAMPIRAN</td><td>Akun uji, perintah menjalankan aplikasi, screenshot, tautan repository/deployment, dan daftar pustaka.</td></tr>
+</table>
+
+<h1>BAB II METODE PENGEMBANGAN</h1>
+
+<h2>2.1 Metode Pengembangan</h2>
+<p>Pengembangan INVENTRA menggunakan metode <b>Agile</b> dengan kerangka kerja <b>Scrum</b>. Agile dipilih karena kebutuhan sistem dapat berkembang selama proses pengembangan, terutama pada penyesuaian fitur, tampilan, dan aturan validasi. Scrum memberikan struktur kerja berupa sprint pendek yang memungkinkan pengujian dan perbaikan dilakukan secara bertahap.</p>
+<p>Dalam konteks proyek sekolah, tim dapat disederhanakan menjadi tiga peran. <i>Product Owner</i> berperan menentukan prioritas kebutuhan dan menerima hasil sprint. <i>Scrum Master</i> membantu menjaga proses kerja dan menghilangkan hambatan. <i>Development Team</i> bertanggung jawab merancang, membangun, dan menguji aplikasi. Setiap sprint menghasilkan increment yang dapat diuji.</p>
+
+<h2>2.1.1 Tahapan Scrum</h2>
+<ol>
+  <li><b>Product Backlog:</b> daftar kebutuhan sistem yang disusun berdasarkan prioritas, seperti autentikasi, master data, stok, penjualan, laporan, dan deployment.</li>
+  <li><b>Sprint Planning:</b> pemilihan item backlog yang akan dikerjakan dalam satu sprint serta penentuan target sprint.</li>
+  <li><b>Daily Standup:</b> pertemuan singkat untuk membahas progres, rencana, dan hambatan.</li>
+  <li><b>Sprint Review:</b> demonstrasi hasil sprint kepada Product Owner dan penerimaan masukan.</li>
+  <li><b>Sprint Retrospective:</b> evaluasi proses kerja untuk perbaikan sprint berikutnya.</li>
+</ol>
+
+<h2>2.2 Jadwal Pengembangan</h2>
+<p>Pengembangan direncanakan dalam empat sprint selama delapan minggu. Setiap sprint berdurasi dua minggu dan menghasilkan increment yang dapat diuji.</p>
+
+<p class="table-title">Tabel 2.1 Rencana Sprint Pengembangan INVENTRA</p>
+<table>
+  <tr><th style="width:12%;">Sprint</th><th style="width:15%;">Minggu</th><th style="width:30%;">Fokus</th><th>Hasil yang Diharapkan</th></tr>
+  <tr><td>Sprint 1</td><td>Minggu 1&ndash;2</td><td>Analisis kebutuhan, SRS, desain UI/UX, ERD</td><td>Dokumen kebutuhan, wireframe, rancangan basis data, dan backlog prioritas.</td></tr>
+  <tr><td>Sprint 2</td><td>Minggu 3&ndash;4</td><td>Setup backend, autentikasi, master data</td><td>API autentikasi, kategori, supplier, produk, dan upload gambar berjalan.</td></tr>
+  <tr><td>Sprint 3</td><td>Minggu 5&ndash;6</td><td>Modul stok, penjualan, laporan</td><td>Pergerakan stok, transaksi penjualan atomik, pembatalan, dan laporan ringkasan.</td></tr>
+  <tr><td>Sprint 4</td><td>Minggu 7&ndash;8</td><td>Integrasi Flutter, pengujian, deployment</td><td>Aplikasi web/Android terintegrasi, pengujian blackbox, repository GitHub, dan URL deployment.</td></tr>
+</table>
+
+<div class="figure">
+  <img class="diagram" src="assets/gantt.png" alt="Gantt chart pengembangan INVENTRA">
+  <p class="caption">Gambar 2.1 Jadwal pengembangan INVENTRA selama delapan minggu</p>
+</div>
+
+<h2>2.3 Alasan Pemilihan Metode</h2>
+<ul>
+  <li>Kebutuhan sistem cukup dinamis dan memerlukan penyesuaian tampilan serta validasi selama pengembangan.</li>
+  <li>Sprint pendek memungkinkan pengujian lebih awal sehingga kesalahan dapat diperbaiki sebelum fitur bertambah.</li>
+  <li>Hasil setiap sprint dapat didemonstrasikan dan mendapat masukan dari guru maupun pengguna.</li>
+  <li>Metode ini sesuai untuk tim kecil dengan waktu pengerjaan terbatas, seperti proyek sekolah.</li>
+</ul>
+
+<h2>2.4 Tools dan Lingkungan Pengembangan</h2>
+<table>
+  <tr><th style="width:24%;">Kategori</th><th style="width:30%;">Tools</th><th>Kegunaan</th></tr>
+  <tr><td>Editor kode</td><td>Visual Studio Code</td><td>Menulis kode Flutter, JavaScript, SQL, dan dokumentasi.</td></tr>
+  <tr><td>Frontend</td><td>Flutter, Dart, Material 3</td><td>Membangun antarmuka web dan Android.</td></tr>
+  <tr><td>Backend</td><td>Node.js, Express, Zod, JWT, Multer</td><td>Membangun REST API, validasi, autentikasi, dan upload.</td></tr>
+  <tr><td>Basis data</td><td>PostgreSQL, psql, pgAdmin</td><td>Menyimpan data dan mengelola skema.</td></tr>
+  <tr><td>Pengujian API</td><td>Node.js fetch, Postman</td><td>Menguji endpoint dan skenario validasi.</td></tr>
+  <tr><td>Version control</td><td>Git, GitHub</td><td>Mengelola riwayat kode dan branching.</td></tr>
+  <tr><td>Deployment</td><td>Netlify atau Vercel, Render, Aiven</td><td>Hosting frontend, backend, dan basis data.</td></tr>
+  <tr><td>Penyimpanan gambar</td><td>Cloudinary</td><td>Menyimpan gambar produk pada lingkungan produksi.</td></tr>
+  <tr><td>Dokumentasi</td><td>Word, PDF, draw.io/SVG</td><td>Menyusun SRS dan diagram.</td></tr>
+</table>
+
+<h1>BAB III ANALISIS KEBUTUHAN</h1>
+
+<h2>3.1 Nama Sistem</h2>
+<p>Nama sistem adalah <b>INVENTRA</b>, singkatan dari <i>Inventory Terpadu</i>. Nama ini dipilih karena sistem berfokus pada pengelolaan inventaris toko secara terpadu, mulai dari produk, stok, transaksi, hingga laporan. Tagline yang digunakan adalah <i>Sistem Manajemen Stok Barang Toko</i>.</p>
+
+<h2>3.2 Ruang Lingkup Sistem</h2>
+<table>
+  <tr><th style="width:50%;">Termasuk dalam ruang lingkup</th><th>Tidak termasuk dalam ruang lingkup</th></tr>
+  <tr>
+    <td>
+      <ul>
+        <li>Autentikasi dan otorisasi admin/staff.</li>
+        <li>Dashboard ringkasan.</li>
+        <li>CRUD kategori, supplier, dan produk.</li>
+        <li>Upload gambar produk.</li>
+        <li>Stok masuk, keluar, dan penyesuaian.</li>
+        <li>Riwayat pergerakan stok.</li>
+        <li>Transaksi penjualan dan pembatalan.</li>
+        <li>Notifikasi stok menipis.</li>
+        <li>Laporan ringkasan stok.</li>
+        <li>Web dan Android melalui Flutter.</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Multi-toko dan multi-gudang.</li>
+        <li>Purchase order dan penerimaan barang dari supplier.</li>
+        <li>Barcode/QR scanning.</li>
+        <li>Payment gateway.</li>
+        <li>Data pelanggan dan program loyalitas.</li>
+        <li>Akuntansi, pajak, dan laporan keuangan formal.</li>
+        <li>Payroll dan manajemen karyawan.</li>
+        <li>Push notification dan offline sync.</li>
+        <li>Layar manajemen pengguna (hanya tersedia API).</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<h2>3.3 Kebutuhan Fungsional</h2>
+<p>Kebutuhan fungsional menjelaskan layanan yang harus disediakan sistem. Prioritas menggunakan pendekatan MoSCoW: <i>Must</i> (wajib), <i>Should</i> (sebaiknya), dan <i>Could</i> (opsional).</p>
+
+<h3>3.3.1 Fitur Utama</h3>
+<p class="table-title">Tabel 3.1 Daftar Kebutuhan Fungsional INVENTRA</p>
+<table>
+  <tr><th style="width:7%;">ID</th><th style="width:14%;">Modul</th><th style="width:20%;">Fitur</th><th style="width:13%;">Aktor</th><th style="width:8%;">Prioritas</th><th>Deskripsi</th></tr>
+  <tr><td>F-01</td><td>Autentikasi</td><td>Registrasi akun</td><td>Publik</td><td>Must</td><td>Membuat akun baru dengan nama 3&ndash;100 karakter, email valid dan unik, serta password 6&ndash;72 karakter. Role otomatis <code>staff</code>.</td></tr>
+  <tr><td>F-02</td><td>Autentikasi</td><td>Login dan logout</td><td>Admin, Staff</td><td>Must</td><td>Login menggunakan email dan password. Token JWT berlaku satu hari. Logout menghapus sesi lokal.</td></tr>
+  <tr><td>F-03</td><td>Dashboard</td><td>Ringkasan operasional</td><td>Admin, Staff</td><td>Must</td><td>Menampilkan total produk, jumlah stok menipis, transaksi hari ini, dan daftar produk stok menipis.</td></tr>
+  <tr><td>F-04</td><td>Kategori</td><td>CRUD kategori</td><td>Admin; Staff melihat</td><td>Must</td><td>Admin dapat menambah, mengubah, dan menghapus kategori. Nama kategori unik. Staff hanya dapat melihat.</td></tr>
+  <tr><td>F-05</td><td>Supplier</td><td>CRUD supplier</td><td>Admin; Staff melihat</td><td>Must</td><td>Admin mengelola data supplier (nama, telepon, email, alamat). Nama supplier unik. Staff hanya dapat melihat.</td></tr>
+  <tr><td>F-06</td><td>Produk</td><td>CRUD dan pencarian produk</td><td>Admin; Staff melihat</td><td>Must</td><td>Admin mengelola produk dengan SKU unik, kategori, harga, stok, dan stok minimal. Tersedia pencarian nama/SKU pada aplikasi, serta filter kategori, filter stok menipis, dan pagination pada API.</td></tr>
+  <tr><td>F-07</td><td>Produk</td><td>Upload gambar produk</td><td>Admin</td><td>Should</td><td>Upload JPG, PNG, atau WEBP maksimal 5 MB. Gambar disimpan ke Cloudinary atau folder lokal. Gambar lama dihapus saat diganti.</td></tr>
+  <tr><td>F-08</td><td>Stok</td><td>Stok masuk, keluar, dan penyesuaian</td><td>Admin, Staff</td><td>Must</td><td>Jumlah harus bilangan bulat positif. Stok keluar tidak boleh melebihi stok tersedia. Penyesuaian menimpa stok menjadi jumlah yang diisi.</td></tr>
+  <tr><td>F-09</td><td>Stok</td><td>Riwayat pergerakan stok</td><td>Admin</td><td>Should</td><td>Menampilkan riwayat stok berdasarkan produk dan tipe, lengkap dengan pengguna, jumlah, catatan, dan waktu.</td></tr>
+  <tr><td>F-10</td><td>Penjualan</td><td>Transaksi penjualan</td><td>Admin, Staff</td><td>Must</td><td>Keranjang berisi 1&ndash;50 baris produk unik. Server menghitung harga dan subtotal, menyimpan transaksi, mengurangi stok, dan mencatat movement keluar secara atomik.</td></tr>
+  <tr><td>F-11</td><td>Penjualan</td><td>Riwayat transaksi dan pembatalan</td><td>Admin, Staff; Admin menghapus</td><td>Must</td><td>Layar Transaksi menampilkan timeline penjualan, pembelian (riwayat stok masuk), dan penyesuaian stok. Tersedia pencarian serta filter Semua/Pembelian/Penjualan/Penyesuaian. Staff hanya melihat penjualan; admin melihat semua. Admin dapat membatalkan penjualan dari riwayat penjualan; stok dikembalikan dan movement masuk dicatat.</td></tr>
+  <tr><td>F-12</td><td>Notifikasi</td><td>Daftar stok menipis</td><td>Admin, Staff</td><td>Must</td><td>Menampilkan produk dengan kondisi <code>stock &le; min_stock</code>. Belum berupa push notification.</td></tr>
+  <tr><td>F-13</td><td>Laporan</td><td>Laporan ringkasan</td><td>Admin, Staff</td><td>Should</td><td>Menampilkan total produk, total stok, jumlah stok menipis, rata-rata stok, dan ringkasan kategori.</td></tr>
+  <tr><td>F-14</td><td>Pengguna</td><td>Daftar pengguna (API)</td><td>Admin</td><td>Could</td><td>Endpoint <code>GET /api/users</code> untuk melihat daftar pengguna. Belum tersedia layar khusus di aplikasi Flutter.</td></tr>
+  <tr><td>F-15</td><td>Profil</td><td>Profil dan logout</td><td>Admin, Staff</td><td>Must</td><td>Menampilkan nama, email, role, versi aplikasi, dan tombol logout.</td></tr>
+</table>
+
+<h3>3.3.2 Karakteristik Pengguna</h3>
+<p class="table-title">Tabel 3.2 Karakteristik Pengguna INVENTRA</p>
+<table>
+  <tr><th style="width:16%;">Pengguna</th><th style="width:20%;">Hak Akses</th><th style="width:22%;">Kemampuan Teknis</th><th>Kebutuhan Utama</th></tr>
+  <tr><td>Admin</td><td>Seluruh fitur staff, CRUD master data, upload gambar, riwayat stok, pembatalan penjualan, daftar pengguna melalui API.</td><td>Mampu mengoperasikan browser/smartphone dan memahami konsep stok.</td><td>Mengelola data master dan memastikan stok serta transaksi akurat.</td></tr>
+  <tr><td>Staff</td><td>Dashboard, melihat master data, stok masuk/keluar/adjust, transaksi penjualan, riwayat transaksi (penjualan tanpa hapus), laporan, notifikasi, profil.</td><td>Mampu mengoperasikan browser/smartphone untuk kegiatan harian.</td><td>Mencatat stok dan penjualan dengan cepat tanpa mengubah data master.</td></tr>
+  <tr><td>Publik</td><td>Registrasi dan login.</td><td>Pengguna umum yang memiliki email.</td><td>Membuat akun staff untuk mulai menggunakan aplikasi.</td></tr>
+</table>
+
+<h3>3.3.3 Kamus Data</h3>
+<p>Kamus data berikut menjelaskan elemen data utama yang digunakan sistem. Tipe data mengikuti implementasi PostgreSQL, sedangkan validasi tambahan dilakukan pada lapisan API.</p>
+
+<p class="table-title">Tabel 3.3 Kamus Data Utama</p>
+<table>
+  <tr><th style="width:15%;">Elemen</th><th style="width:15%;">Entitas</th><th style="width:17%;">Tipe</th><th style="width:12%;">Wajib</th><th>Deskripsi dan Aturan</th></tr>
+  <tr><td><code>id</code></td><td>Semua tabel</td><td>BIGSERIAL</td><td>Ya</td><td>Primary key, bertambah otomatis.</td></tr>
+  <tr><td><code>name</code></td><td>users, categories, suppliers, products</td><td>VARCHAR(100/150)</td><td>Ya</td><td>Nama pengguna/kategori/supplier/produk. Panjang minimal 2&ndash;3 karakter sesuai entitas.</td></tr>
+  <tr><td><code>email</code></td><td>users, suppliers</td><td>VARCHAR(150)</td><td>Ya (users), opsional (suppliers)</td><td>Format email valid. Pada users harus unik dan disimpan lowercase.</td></tr>
+  <tr><td><code>password_hash</code></td><td>users</td><td>TEXT</td><td>Ya</td><td>Hash bcrypt cost 10. Password asli tidak pernah disimpan.</td></tr>
+  <tr><td><code>role</code></td><td>users</td><td>ENUM user_role</td><td>Ya</td><td>Nilai <code>admin</code> atau <code>staff</code>; default <code>staff</code>.</td></tr>
+  <tr><td><code>is_active</code></td><td>users</td><td>BOOLEAN</td><td>Ya</td><td>Status akun; default true. Akun nonaktif tidak boleh login.</td></tr>
+  <tr><td><code>category_id</code></td><td>products</td><td>BIGINT</td><td>Ya</td><td>Foreign key ke categories; wajib ada saat produk dibuat.</td></tr>
+  <tr><td><code>sku</code></td><td>products</td><td>VARCHAR(50)</td><td>Ya</td><td>Kode unik produk, diubah ke huruf besar, 2&ndash;50 karakter.</td></tr>
+  <tr><td><code>description</code></td><td>categories, products</td><td>TEXT</td><td>Tidak</td><td>Deskripsi kategori/produk, maksimal 500&ndash;1000 karakter.</td></tr>
+  <tr><td><code>price</code></td><td>products, sale_items</td><td>NUMERIC(12,2)</td><td>Ya</td><td>Harga satuan dalam Rupiah, tidak boleh negatif.</td></tr>
+  <tr><td><code>stock</code></td><td>products</td><td>INTEGER</td><td>Ya</td><td>Jumlah stok saat ini, tidak boleh negatif.</td></tr>
+  <tr><td><code>min_stock</code></td><td>products</td><td>INTEGER</td><td>Ya</td><td>Batas stok minimal; default 5. Stok menipis jika <code>stock &le; min_stock</code>.</td></tr>
+  <tr><td><code>image_url</code></td><td>products</td><td>TEXT</td><td>Tidak</td><td>URL gambar Cloudinary atau path <code>/uploads/...</code>.</td></tr>
+  <tr><td><code>type</code></td><td>stock_movements</td><td>ENUM movement_type</td><td>Ya</td><td>Nilai <code>in</code>, <code>out</code>, atau <code>adjust</code>.</td></tr>
+  <tr><td><code>quantity</code></td><td>stock_movements, sale_items</td><td>INTEGER</td><td>Ya</td><td>Jumlah barang; harus bilangan bulat lebih dari 0.</td></tr>
+  <tr><td><code>note</code></td><td>stock_movements</td><td>TEXT</td><td>Tidak</td><td>Catatan pergerakan stok, maksimal 255 karakter.</td></tr>
+  <tr><td><code>user_id</code></td><td>stock_movements, sales</td><td>BIGINT</td><td>Ya</td><td>Foreign key ke users; mencatat pelaku pergerakan/transaksi.</td></tr>
+  <tr><td><code>product_id</code></td><td>stock_movements, sale_items</td><td>BIGINT</td><td>Ya</td><td>Foreign key ke products.</td></tr>
+  <tr><td><code>sale_id</code></td><td>sale_items</td><td>BIGINT</td><td>Ya</td><td>Foreign key ke sales.</td></tr>
+  <tr><td><code>product_name</code></td><td>sale_items</td><td>VARCHAR(150)</td><td>Ya</td><td>Snapshot nama produk saat transaksi agar riwayat tidak berubah.</td></tr>
+  <tr><td><code>subtotal</code></td><td>sale_items</td><td>NUMERIC(14,2)</td><td>Ya</td><td>Hasil <code>price &times; quantity</code>, tidak boleh negatif.</td></tr>
+  <tr><td><code>total</code></td><td>sales</td><td>NUMERIC(14,2)</td><td>Ya</td><td>Jumlah seluruh subtotal dalam satu transaksi.</td></tr>
+  <tr><td><code>created_at</code></td><td>Semua tabel</td><td>TIMESTAMPTZ</td><td>Ya</td><td>Waktu data dibuat; default <code>now()</code>.</td></tr>
+  <tr><td><code>updated_at</code></td><td>users, categories, suppliers, products</td><td>TIMESTAMPTZ</td><td>Ya</td><td>Waktu data diubah; diperbarui oleh trigger <code>set_updated_at()</code>.</td></tr>
+</table>
+
+<h3>3.3.4 Rancangan Antarmuka</h3>
+<p>Antarmuka INVENTRA menggunakan Material 3 dengan warna utama hijau tua (<code>#0F766E</code> dan <code>#0B5D4E</code>) serta latar mint (<code>#E6F7EF</code>). Tampilan dibuat responsif untuk browser desktop dan layar Android, dengan navigasi bawah pada aplikasi mobile.</p>
+
+<p class="table-title">Tabel 3.4 Rancangan Layar Utama</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:18%;">Layar</th><th style="width:30%;">Komponen Utama</th><th style="width:12%;">Aktor</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>Login</td><td>Logo, email, password, tombol masuk, tautan daftar</td><td>Publik</td><td>Validasi form dan pesan kesalahan.</td></tr>
+  <tr><td>2</td><td>Registrasi</td><td>Nama, email, password, konfirmasi password, tombol daftar</td><td>Publik</td><td>Role otomatis staff; kembali ke login setelah berhasil.</td></tr>
+  <tr><td>3</td><td>Dashboard</td><td>Header, kartu statistik, menu utama, daftar stok menipis, bottom navigation</td><td>Admin, Staff</td><td>Menampilkan total produk, stok menipis, dan transaksi hari ini.</td></tr>
+  <tr><td>4</td><td>Produk</td><td>Pencarian nama/SKU, daftar produk, tombol tambah</td><td>Admin, Staff</td><td>Admin dapat tambah/ubah/hapus; staff hanya melihat.</td></tr>
+  <tr><td>5</td><td>Detail Produk</td><td>Gambar, SKU, kategori, harga, stok, stok minimal, deskripsi</td><td>Admin, Staff</td><td>Menampilkan informasi lengkap produk.</td></tr>
+  <tr><td>6</td><td>Form Produk</td><td>Kategori, SKU, nama, harga, stok awal, stok minimal, gambar</td><td>Admin</td><td>Dialog form dengan validasi.</td></tr>
+  <tr><td>7</td><td>Kategori</td><td>Daftar kategori, jumlah produk, tombol tambah/ubah/hapus</td><td>Admin, Staff</td><td>Staff hanya melihat.</td></tr>
+  <tr><td>8</td><td>Supplier</td><td>Daftar supplier, nama, telepon, email, alamat</td><td>Admin, Staff</td><td>Staff hanya melihat.</td></tr>
+  <tr><td>9</td><td>Kelola Stok</td><td>Daftar produk, pemilih tipe stok, jumlah</td><td>Admin, Staff</td><td>Admin dan staff dapat mengubah stok.</td></tr>
+  <tr><td>10</td><td>Transaksi (timeline)</td><td>Pencarian, filter Semua/Pembelian/Penjualan/Penyesuaian, daftar transaksi, total transaksi per bulan, tombol tambah</td><td>Admin, Staff</td><td>Menggabungkan penjualan, riwayat stok masuk, dan penyesuaian stok. Staff hanya melihat penjualan.</td></tr>
+  <tr><td>11</td><td>Penjualan Baru</td><td>Pemilih produk, jumlah, keranjang, total, tombol simpan</td><td>Admin, Staff</td><td>Total dihitung server saat transaksi disimpan.</td></tr>
+  <tr><td>12</td><td>Riwayat Penjualan</td><td>Daftar penjualan, detail item, tombol hapus</td><td>Admin, Staff</td><td>Tombol hapus hanya untuk admin; stok dikembalikan saat dibatalkan.</td></tr>
+  <tr><td>13</td><td>Notifikasi</td><td>Daftar produk stok menipis</td><td>Admin, Staff</td><td>Berdasarkan kondisi <code>stock &le; min_stock</code>.</td></tr>
+  <tr><td>14</td><td>Laporan</td><td>Kartu ringkasan, kesehatan stok, daftar stok menipis</td><td>Admin, Staff</td><td>Laporan ringkasan, bukan laporan keuangan.</td></tr>
+  <tr><td>15</td><td>Profil</td><td>Nama, email, role, versi aplikasi, logout</td><td>Admin, Staff</td><td>Logout menghapus sesi dan kembali ke login.</td></tr>
+</table>
+
+<div class="note">
+  <b>Catatan istilah:</b> tab <b>Pembelian</b> pada layar Transaksi menampilkan riwayat stok masuk (<code>stock_movements</code> tipe <code>in</code>), bukan purchase order. Tab <b>Penyesuaian</b> menampilkan riwayat <code>adjust</code>. Dengan demikian, fitur ini tetap sesuai dengan skema database yang ada.
+</div>
+
+<p>Prinsip rancangan antarmuka yang digunakan:</p>
+<ul>
+  <li><b>Konsisten:</b> warna, tombol, kartu, dan dialog mengikuti tema yang sama.</li>
+  <li><b>Jelas:</b> setiap aksi memberikan umpan balik berupa loading, pesan sukses, atau pesan kesalahan.</li>
+  <li><b>Berbasis peran:</b> tombol admin disembunyikan dari staff.</li>
+  <li><b>Responsif:</b> layout menyesuaikan lebar layar; navigasi bawah digunakan pada tampilan mobile.</li>
+  <li><b>Mudah dipindai:</b> informasi penting seperti stok, harga, dan status stok menipis ditampilkan menonjol.</li>
+</ul>
+
+<h3>3.3.5 Interaksi Antar-Modul</h3>
+<p class="table-title">Tabel 3.5 Interaksi Antar-Modul</p>
+<table>
+  <tr><th style="width:18%;">Modul</th><th style="width:25%;">Bergantung pada</th><th>Bentuk Interaksi</th></tr>
+  <tr><td>Autentikasi</td><td>Users</td><td>Memverifikasi email/password, membuat JWT, dan mengembalikan data pengguna.</td></tr>
+  <tr><td>Dashboard</td><td>Products, Sales</td><td>Mengambil total produk, stok menipis, dan transaksi hari ini.</td></tr>
+  <tr><td>Produk</td><td>Categories, Users</td><td>Validasi kategori, pencatatan stok awal, dan otorisasi admin.</td></tr>
+  <tr><td>Upload Gambar</td><td>Products, Cloudinary</td><td>Menyimpan file, memperbarui <code>image_url</code>, dan menghapus gambar lama.</td></tr>
+  <tr><td>Stok</td><td>Products, Users, StockMovements</td><td>Mengubah stok dan mencatat pergerakan dalam satu transaksi.</td></tr>
+  <tr><td>Penjualan</td><td>Products, StockMovements, Users</td><td>Menghitung total, mengurangi stok, dan mencatat movement keluar secara atomik.</td></tr>
+  <tr><td>Pembatalan Penjualan</td><td>Sales, Products, StockMovements</td><td>Mengembalikan stok dan mencatat movement masuk.</td></tr>
+  <tr><td>Notifikasi</td><td>Products</td><td>Membaca produk dengan kondisi stok menipis.</td></tr>
+  <tr><td>Laporan</td><td>Products, Categories, Sales</td><td>Mengagregasi data produk dan transaksi untuk ringkasan.</td></tr>
+  <tr><td>Supplier</td><td>Tidak terhubung langsung ke produk</td><td>Master data supplier masih berdiri sendiri; relasi ke produk menjadi saran pengembangan.</td></tr>
+</table>
+
+<h3>3.3.6 Alur Bisnis Utama</h3>
+<h4>a. Alur login</h4>
+<ol>
+  <li>Pengguna membuka aplikasi dan mengisi email serta password.</li>
+  <li>Aplikasi memvalidasi format input, lalu mengirim permintaan ke <code>POST /api/auth/login</code>.</li>
+  <li>Server memverifikasi password dengan bcrypt dan status <code>is_active</code>.</li>
+  <li>Jika valid, server mengembalikan JWT dan data pengguna. Aplikasi menyimpan sesi dan membuka dashboard.</li>
+  <li>Jika gagal, aplikasi menampilkan pesan kesalahan tanpa membocorkan detail keamanan.</li>
+</ol>
+
+<h4>b. Alur pembuatan produk</h4>
+<ol>
+  <li>Admin membuka form produk dan memilih kategori.</li>
+  <li>Admin mengisi SKU, nama, harga, stok awal, stok minimal, dan deskripsi.</li>
+  <li>API memvalidasi input, memastikan kategori ada, dan SKU belum digunakan.</li>
+  <li>Produk disimpan. Jika stok awal lebih dari 0, sistem mencatat movement <code>in</code> dengan catatan &ldquo;Stok awal saat produk dibuat&rdquo;.</li>
+  <li>Admin dapat mengunggah gambar produk melalui endpoint upload.</li>
+</ol>
+
+<h4>c. Alur pergerakan stok</h4>
+<ol>
+  <li>Pengguna memilih produk dan tipe pergerakan: masuk, keluar, atau penyesuaian.</li>
+  <li>API mengunci baris produk dengan <code>FOR UPDATE</code> agar tidak terjadi race condition.</li>
+  <li>Tipe <code>in</code> menambah stok, <code>out</code> mengurangi stok, dan <code>adjust</code> menimpa stok.</li>
+  <li>Jika stok menjadi negatif, transaksi ditolak dan tidak ada data yang disimpan.</li>
+  <li>Perubahan stok dan riwayat movement disimpan dalam satu transaksi database.</li>
+</ol>
+
+<h4>d. Alur transaksi penjualan</h4>
+<ol>
+  <li>Pengguna memilih produk dan jumlah, lalu menambahkan ke keranjang.</li>
+  <li>Pengguna menyimpan transaksi. API memvalidasi 1&ndash;50 item unik dan jumlah positif.</li>
+  <li>API mengunci setiap produk, memeriksa stok, dan menghitung subtotal serta total dari harga di database.</li>
+  <li>API menyimpan <code>sales</code> dan <code>sale_items</code>, mengurangi stok, serta mencatat movement <code>out</code>.</li>
+  <li>Jika salah satu produk tidak ditemukan atau stok tidak cukup, seluruh transaksi di-rollback.</li>
+</ol>
+
+<h4>e. Alur pembatalan penjualan</h4>
+<ol>
+  <li>Admin membuka riwayat transaksi atau riwayat penjualan dan memilih transaksi yang akan dibatalkan.</li>
+  <li>API mengunci transaksi, mengambil item, menambah stok setiap produk, dan mencatat movement <code>in</code> dengan catatan pembatalan.</li>
+  <li>Data <code>sales</code> dihapus; <code>sale_items</code> terhapus otomatis melalui cascade.</li>
+  <li>Riwayat stok tetap menyimpan jejak pembatalan.</li>
+</ol>
+
+<h4>f. Alur riwayat transaksi gabungan</h4>
+<ol>
+  <li>Pengguna membuka layar Transaksi. Aplikasi mengambil penjualan melalui <code>GET /api/sales</code>.</li>
+  <li>Jika pengguna admin, aplikasi juga mengambil <code>GET /api/stock-movements</code> untuk menampilkan riwayat stok masuk dan penyesuaian.</li>
+  <li>Data digabung dan diurutkan berdasarkan tanggal terbaru, lalu difilter melalui tab Semua, Pembelian, Penjualan, atau Penyesuaian serta kolom pencarian.</li>
+  <li>Staff hanya melihat penjualan, sedangkan admin melihat seluruh jenis transaksi.</li>
+  <li>Tombol tambah membuka layar Penjualan Baru; riwayat penjualan memiliki aksi hapus khusus admin.</li>
+</ol>
+
+<h4>g. Alur notifikasi stok menipis</h4>
+<ol>
+  <li>Aplikasi meminta <code>GET /api/products?low_stock=true</code>.</li>
+  <li>API memfilter produk dengan kondisi <code>stock &le; min_stock</code>.</li>
+  <li>Aplikasi menampilkan daftar produk yang perlu segera diisi ulang.</li>
+</ol>
+
+<h2>3.4 Kebutuhan Non-Fungsional</h2>
+<h3>3.4.1 Kebutuhan Produk</h3>
+<p class="table-title">Tabel 3.6 Kebutuhan Non-Fungsional Produk</p>
+<table>
+  <tr><th style="width:8%;">ID</th><th style="width:20%;">Kategori</th><th>Kebutuhan</th></tr>
+  <tr><td>NF-01</td><td>Performance</td><td>Permintaan API untuk data normal harus selesai dalam waktu kurang dari 1 detik pada lingkungan lokal. Daftar data wajib menggunakan pagination dengan batas maksimal 100 baris.</td></tr>
+  <tr><td>NF-02</td><td>Usability</td><td>Antarmuka menggunakan Bahasa Indonesia, warna kontras, tombol minimal 44 px, serta pesan sukses/kesalahan yang jelas.</td></tr>
+  <tr><td>NF-03</td><td>Reliability</td><td>Transaksi stok dan penjualan harus atomik. Jika satu langkah gagal, seluruh perubahan dibatalkan. Health check tersedia di <code>/api/health</code>.</td></tr>
+  <tr><td>NF-04</td><td>Security</td><td>Password di-hash bcrypt, JWT berlaku satu hari, endpoint privat memakai Bearer token, role diperiksa, input divalidasi, dan file upload difilter.</td></tr>
+  <tr><td>NF-05</td><td>Compatibility</td><td>Aplikasi web berjalan pada Chrome, Edge, Firefox, dan Safari modern. Aplikasi Android menggunakan Flutter. iOS/macOS belum menjadi target pengujian.</td></tr>
+  <tr><td>NF-06</td><td>Maintainability</td><td>Kode backend dipisahkan menjadi routes, controllers, validators, middlewares, dan utils. Konfigurasi rahasia disimpan di environment variable.</td></tr>
+  <tr><td>NF-07</td><td>Scalability</td><td>Connection pool maksimal 10 koneksi, indeks pada kolom pencarian dan foreign key, serta pagination untuk menekan beban data besar.</td></tr>
+  <tr><td>NF-08</td><td>Portability</td><td>Backend berjalan pada Node.js 18+ dan PostgreSQL 14+. Frontend dapat dibangun untuk web dan Android dari basis kode yang sama.</td></tr>
+  <tr><td>NF-09</td><td>Data Integrity</td><td>Unique constraint, foreign key, check constraint, trigger <code>updated_at</code>, dan transaksi database menjaga konsistensi data.</td></tr>
+  <tr><td>NF-10</td><td>Observability</td><td>Log HTTP menggunakan morgan, error handler terpusat, dan health check database. Belum tersedia APM atau centralized logging.</td></tr>
+  <tr><td>NF-11</td><td>Accessibility</td><td>Form memiliki label/hint, kontras warna memadai, dan tombol dapat dijangkau. Audit aksesibilitas formal belum dilakukan.</td></tr>
+  <tr><td>NF-12</td><td>Localization</td><td>Bahasa Indonesia dan format Rupiah. Dukungan multi-bahasa belum termasuk ruang lingkup.</td></tr>
+</table>
+
+<h3>3.4.2 Kebutuhan Organisasi</h3>
+<ul>
+  <li>Admin dan staff perlu memahami pembagian hak akses sebelum menggunakan aplikasi.</li>
+  <li>Sekolah perlu menyediakan lingkungan pengujian dan akun layanan cloud untuk deployment.</li>
+  <li>Dokumentasi penggunaan, API, dan deployment harus tersedia bagi pengembang berikutnya.</li>
+  <li>Perubahan skema database harus melalui migrasi dan pencadangan data.</li>
+</ul>
+
+<h3>3.4.3 Kebutuhan Eksternal</h3>
+<ul>
+  <li>Layanan hosting Netlify/Vercel, Render, Aiven, dan Cloudinary harus dapat diakses melalui HTTPS.</li>
+  <li>Aplikasi mengikuti ketentuan layanan masing-masing penyedia, termasuk batas kuota free tier.</li>
+  <li>Data pengguna tidak boleh dibagikan tanpa izin. Password dan secret tidak boleh ditulis di repository.</li>
+  <li>Aplikasi tidak memproses pembayaran sehingga belum memerlukan integrasi regulasi pembayaran.</li>
+</ul>
+
+<h2>3.5 Batasan Sistem</h2>
+<ul>
+  <li>Sistem ditujukan untuk satu toko dan satu gudang; belum mendukung multi-cabang.</li>
+  <li>Supplier belum terhubung langsung ke produk dan belum ada purchase order. Tab <b>Pembelian</b> pada layar Transaksi hanya menampilkan riwayat stok masuk.</li>
+  <li>Tidak ada barcode/QR scanning, payment gateway, atau data pelanggan.</li>
+  <li>Laporan bersifat ringkasan stok, bukan laporan laba/rugi atau laporan keuangan formal.</li>
+  <li>Notifikasi stok menipis hanya berupa daftar di aplikasi, bukan push notification.</li>
+  <li>Manajemen pengguna baru tersedia melalui API, belum ada layar khusus di Flutter.</li>
+  <li>Ukuran gambar maksimal 5 MB dengan format JPG, PNG, atau WEBP.</li>
+  <li>JWT disimpan pada penyimpanan lokal aplikasi; mekanisme refresh token dan revokasi belum tersedia.</li>
+  <li>Free tier hosting dapat mengalami cold start dan penyimpanan lokal bersifat sementara.</li>
+  <li>Build iOS/macOS belum diverifikasi karena keterbatasan toolchain.</li>
+</ul>
+
+<h2>3.6 Asumsi dan Ketergantungan</h2>
+<table>
+  <tr><th style="width:22%;">Asumsi</th><th>Penjelasan</th></tr>
+  <tr><td>Koneksi internet</td><td>Aplikasi web dan Android memerlukan koneksi ke REST API. Mode offline belum tersedia.</td></tr>
+  <tr><td>Data awal</td><td>Admin seed tersedia melalui <code>seed.sql</code>; akun staff dapat dibuat melalui registrasi.</td></tr>
+  <tr><td>Mata uang</td><td>Semua harga menggunakan Rupiah dan disimpan sebagai <code>NUMERIC</code>.</td></tr>
+  <tr><td>Basis data</td><td>Produksi menggunakan PostgreSQL Aiven dengan SSL. Lokal menggunakan PostgreSQL.</td></tr>
+  <tr><td>Penyimpanan gambar</td><td>Produksi disarankan menggunakan Cloudinary agar gambar tidak hilang saat instance restart.</td></tr>
+</table>
+
+<h1>BAB IV DEVELOPMENT</h1>
+
+<h2>4.1 Desain Sistem</h2>
+<h3>4.1.1 Arsitektur Sistem</h3>
+<p>INVENTRA menggunakan arsitektur tiga lapis. Lapisan klien berupa aplikasi Flutter yang berjalan di browser atau Android. Lapisan aplikasi berupa REST API Express yang menangani autentikasi, validasi, aturan bisnis, dan akses database. Lapisan data berupa PostgreSQL. Gambar produk dapat disimpan di Cloudinary atau folder lokal backend.</p>
+<div class="figure">
+  <img class="diagram" src="assets/architecture.png" alt="Arsitektur deployment INVENTRA">
+  <p class="caption">Gambar 4.1 Arsitektur deployment INVENTRA</p>
+</div>
+<p>Komunikasi klien ke API menggunakan HTTPS dan format JSON. Endpoint privat memerlukan header <code>Authorization: Bearer &lt;token&gt;</code>. API mengakses PostgreSQL menggunakan connection pool dan SSL pada lingkungan produksi. Cloudinary diakses melalui HTTPS untuk menyimpan gambar.</p>
+
+<h3>4.1.2 Activity Diagram Login</h3>
+<p>Diagram berikut menggambarkan alur login, mulai dari validasi form, permintaan ke API, penyimpanan token, hingga logout.</p>
+<div class="figure">
+  <img class="tall" src="assets/activity_login.png" alt="Activity diagram login">
+  <p class="caption">Gambar 4.2 Activity diagram login INVENTRA</p>
+</div>
+
+<h3>4.1.3 Activity Diagram Transaksi Penjualan</h3>
+<p>Diagram berikut menggambarkan alur transaksi penjualan, termasuk validasi stok, penyimpanan transaksi, pengurangan stok, dan rollback ketika stok tidak mencukupi.</p>
+<div class="figure">
+  <img class="tall" src="assets/activity_sale.png" alt="Activity diagram transaksi penjualan">
+  <p class="caption">Gambar 4.3 Activity diagram transaksi penjualan</p>
+</div>
+
+<h3>4.1.4 Use Case Diagram</h3>
+<p>Use case diagram menunjukkan interaksi antara aktor Staff dan Admin dengan fitur sistem. Admin memiliki seluruh akses Staff ditambah fitur master data, upload gambar, pembatalan penjualan, dan daftar pengguna melalui API.</p>
+<div class="figure">
+  <img class="diagram" src="assets/use_case.png" alt="Use case diagram INVENTRA">
+  <p class="caption">Gambar 4.4 Use case diagram INVENTRA</p>
+</div>
+
+<p class="table-title">Tabel 4.1 Aktor dan Use Case</p>
+<table>
+  <tr><th style="width:18%;">Aktor</th><th>Use Case</th></tr>
+  <tr><td>Staff</td><td>Login, Register, Dashboard, Profil &amp; Logout, Kelola Stok, Transaksi Penjualan, Riwayat Transaksi, Laporan, Notifikasi Stok.</td></tr>
+  <tr><td>Admin</td><td>Seluruh use case Staff ditambah Kelola Kategori, Kelola Supplier, Kelola Produk, Upload Gambar, Pembatalan Penjualan, dan Daftar Pengguna (API).</td></tr>
+  <tr><td>Publik</td><td>Register dan Login.</td></tr>
+</table>
+
+<h3>4.1.5 Class Diagram</h3>
+<p>Class diagram berikut merupakan model domain konseptual. Implementasi Flutter menggunakan widget, model <code>User</code>, serta service <code>ApiClient</code>, <code>AuthService</code>, dan <code>Session</code>. Entity lain dipetakan dari respons JSON API.</p>
+<div class="figure">
+  <img class="diagram" src="assets/class_diagram.png" alt="Class diagram domain INVENTRA">
+  <p class="caption">Gambar 4.5 Class diagram domain INVENTRA</p>
+</div>
+
+<p class="table-title">Tabel 4.2 Pemetaan Class ke Implementasi</p>
+<table>
+  <tr><th style="width:24%;">Class</th><th style="width:30%;">Implementasi</th><th>Keterangan</th></tr>
+  <tr><td>User</td><td><code>lib/models/user.dart</code>, <code>Session</code></td><td>Menyimpan id, nama, email, dan role pengguna yang login.</td></tr>
+  <tr><td>Product, Category, Supplier</td><td>Model data dari respons API</td><td>Direpresentasikan sebagai <code>Map&lt;String, dynamic&gt;</code> pada layar Flutter.</td></tr>
+  <tr><td>StockMovement, Sale, SaleItem</td><td>Respons API dan layar riwayat</td><td>Data ditampilkan sebagai list dan detail transaksi.</td></tr>
+  <tr><td>ApiClient</td><td><code>lib/services/api_client.dart</code></td><td>Menangani HTTP, token, error, dan upload multipart.</td></tr>
+  <tr><td>AuthService</td><td><code>lib/services/auth_service.dart</code></td><td>Login, registrasi, dan pengambilan profil.</td></tr>
+  <tr><td>Session</td><td><code>lib/services/session.dart</code></td><td>Menyimpan token dan data pengguna secara lokal.</td></tr>
+</table>
+
+<h2>4.2 Desain Database</h2>
+<h3>4.2.1 Entity Relationship Diagram</h3>
+<p>Basis data INVENTRA terdiri dari tujuh tabel utama: <code>users</code>, <code>categories</code>, <code>suppliers</code>, <code>products</code>, <code>stock_movements</code>, <code>sales</code>, dan <code>sale_items</code>.</p>
+<div class="figure">
+  <img class="diagram" src="assets/erd.png" alt="ERD INVENTRA">
+  <p class="caption">Gambar 4.6 Entity Relationship Diagram INVENTRA</p>
+</div>
+
+<h3>4.2.2 Skema Tabel</h3>
+
+<p class="table-title">Tabel 4.3 Skema Tabel users</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>name</td><td>VARCHAR(100)</td><td>Tidak</td><td>-</td><td>Nama pengguna.</td></tr>
+  <tr><td>3</td><td>email</td><td>VARCHAR(150)</td><td>Tidak</td><td>-</td><td>Unik, format email, disimpan lowercase.</td></tr>
+  <tr><td>4</td><td>password_hash</td><td>TEXT</td><td>Tidak</td><td>-</td><td>Hash bcrypt.</td></tr>
+  <tr><td>5</td><td>role</td><td>user_role</td><td>Tidak</td><td>staff</td><td>admin atau staff.</td></tr>
+  <tr><td>6</td><td>is_active</td><td>BOOLEAN</td><td>Tidak</td><td>true</td><td>Status akun.</td></tr>
+  <tr><td>7</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu dibuat.</td></tr>
+  <tr><td>8</td><td>updated_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Diperbarui trigger.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.4 Skema Tabel categories</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>name</td><td>VARCHAR(100)</td><td>Tidak</td><td>-</td><td>Unik, minimal 2 karakter.</td></tr>
+  <tr><td>3</td><td>description</td><td>TEXT</td><td>Ya</td><td>-</td><td>Deskripsi kategori.</td></tr>
+  <tr><td>4</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu dibuat.</td></tr>
+  <tr><td>5</td><td>updated_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Diperbarui trigger.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.5 Skema Tabel suppliers</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>name</td><td>VARCHAR(150)</td><td>Tidak</td><td>-</td><td>Unik, minimal 2 karakter.</td></tr>
+  <tr><td>3</td><td>phone</td><td>VARCHAR(30)</td><td>Ya</td><td>-</td><td>Nomor telepon valid.</td></tr>
+  <tr><td>4</td><td>email</td><td>VARCHAR(150)</td><td>Ya</td><td>-</td><td>Email supplier.</td></tr>
+  <tr><td>5</td><td>address</td><td>TEXT</td><td>Ya</td><td>-</td><td>Alamat supplier.</td></tr>
+  <tr><td>6</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu dibuat.</td></tr>
+  <tr><td>7</td><td>updated_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Diperbarui trigger.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.6 Skema Tabel products</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>category_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke categories, ON DELETE RESTRICT.</td></tr>
+  <tr><td>3</td><td>sku</td><td>VARCHAR(50)</td><td>Tidak</td><td>-</td><td>Unik, uppercase, 2&ndash;50 karakter.</td></tr>
+  <tr><td>4</td><td>name</td><td>VARCHAR(150)</td><td>Tidak</td><td>-</td><td>Nama produk.</td></tr>
+  <tr><td>5</td><td>description</td><td>TEXT</td><td>Ya</td><td>-</td><td>Deskripsi produk.</td></tr>
+  <tr><td>6</td><td>price</td><td>NUMERIC(12,2)</td><td>Tidak</td><td>0</td><td>Harga satuan, &ge; 0.</td></tr>
+  <tr><td>7</td><td>stock</td><td>INTEGER</td><td>Tidak</td><td>0</td><td>Stok saat ini, &ge; 0.</td></tr>
+  <tr><td>8</td><td>min_stock</td><td>INTEGER</td><td>Tidak</td><td>5</td><td>Batas stok minimal, &ge; 0.</td></tr>
+  <tr><td>9</td><td>image_url</td><td>TEXT</td><td>Ya</td><td>-</td><td>URL gambar.</td></tr>
+  <tr><td>10</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu dibuat.</td></tr>
+  <tr><td>11</td><td>updated_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Diperbarui trigger.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.7 Skema Tabel stock_movements</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>product_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke products, ON DELETE CASCADE.</td></tr>
+  <tr><td>3</td><td>user_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke users, ON DELETE RESTRICT.</td></tr>
+  <tr><td>4</td><td>type</td><td>movement_type</td><td>Tidak</td><td>-</td><td>in, out, atau adjust.</td></tr>
+  <tr><td>5</td><td>quantity</td><td>INTEGER</td><td>Tidak</td><td>-</td><td>Jumlah &gt; 0.</td></tr>
+  <tr><td>6</td><td>note</td><td>TEXT</td><td>Ya</td><td>-</td><td>Catatan pergerakan.</td></tr>
+  <tr><td>7</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu pergerakan.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.8 Skema Tabel sales</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>user_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke users, ON DELETE RESTRICT.</td></tr>
+  <tr><td>3</td><td>total</td><td>NUMERIC(14,2)</td><td>Tidak</td><td>0</td><td>Total transaksi, &ge; 0.</td></tr>
+  <tr><td>4</td><td>created_at</td><td>TIMESTAMPTZ</td><td>Tidak</td><td>now()</td><td>Waktu transaksi.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.9 Skema Tabel sale_items</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:22%;">Kolom</th><th style="width:20%;">Tipe</th><th style="width:8%;">Null</th><th style="width:18%;">Default</th><th>Keterangan</th></tr>
+  <tr><td>1</td><td>id</td><td>BIGSERIAL</td><td>Tidak</td><td>Auto</td><td>Primary key.</td></tr>
+  <tr><td>2</td><td>sale_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke sales, ON DELETE CASCADE.</td></tr>
+  <tr><td>3</td><td>product_id</td><td>BIGINT</td><td>Tidak</td><td>-</td><td>FK ke products, ON DELETE RESTRICT.</td></tr>
+  <tr><td>4</td><td>product_name</td><td>VARCHAR(150)</td><td>Tidak</td><td>-</td><td>Snapshot nama produk.</td></tr>
+  <tr><td>5</td><td>price</td><td>NUMERIC(12,2)</td><td>Tidak</td><td>-</td><td>Harga saat transaksi.</td></tr>
+  <tr><td>6</td><td>quantity</td><td>INTEGER</td><td>Tidak</td><td>-</td><td>Jumlah &gt; 0.</td></tr>
+  <tr><td>7</td><td>subtotal</td><td>NUMERIC(14,2)</td><td>Tidak</td><td>-</td><td>price &times; quantity.</td></tr>
+</table>
+
+<h3>4.2.3 Relasi dan Normalisasi</h3>
+<ul>
+  <li><b>users 1&mdash;0..* sales:</b> satu pengguna dapat membuat banyak transaksi.</li>
+  <li><b>users 1&mdash;0..* stock_movements:</b> satu pengguna dapat mencatat banyak pergerakan stok.</li>
+  <li><b>categories 1&mdash;0..* products:</b> satu kategori memiliki banyak produk; kategori yang masih dipakai tidak boleh dihapus.</li>
+  <li><b>products 1&mdash;0..* stock_movements:</b> satu produk memiliki banyak riwayat stok.</li>
+  <li><b>sales 1&mdash;1..* sale_items:</b> satu transaksi memiliki minimal satu item.</li>
+  <li><b>products 1&mdash;0..* sale_items:</b> satu produk dapat muncul pada banyak item transaksi.</li>
+</ul>
+<p>Skema telah memenuhi bentuk normal ketiga (3NF). Data produk pada <code>sale_items</code> sengaja disalin (<code>product_name</code> dan <code>price</code>) sebagai snapshot historis agar riwayat transaksi tidak berubah ketika data produk diperbarui. Kolom <code>subtotal</code> dan <code>total</code> disimpan untuk mempercepat pembacaan laporan, tetapi nilainya selalu dihitung dan divalidasi oleh server.</p>
+
+<h3>4.2.4 Indeks, Trigger, dan Transaksi</h3>
+<ul>
+  <li>Indeks disediakan pada <code>users.role</code>, <code>products.category_id</code>, <code>products.lower(name)</code>, <code>stock_movements.product_id</code>, <code>stock_movements.created_at</code>, <code>sales.created_at</code>, <code>sale_items.sale_id</code>, dan <code>sale_items.product_id</code>.</li>
+  <li>Trigger <code>set_updated_at()</code> memperbarui kolom <code>updated_at</code> pada users, categories, suppliers, dan products.</li>
+  <li>Fungsi <code>withTransaction()</code> menjalankan <code>BEGIN</code>, <code>COMMIT</code>, dan <code>ROLLBACK</code> untuk operasi stok dan penjualan.</li>
+  <li>Query stok dan penjualan menggunakan <code>SELECT ... FOR UPDATE</code> untuk mencegah perubahan bersamaan yang menyebabkan stok negatif.</li>
+  <li>Constraint <code>CHECK</code> menjaga harga, stok, jumlah, dan subtotal tidak negatif.</li>
+</ul>
+
+<h2>4.3 Struktur Project</h2>
+<pre>sistem-manajemen-stok/
+â”œâ”€â”€ backend/
+â”‚   â”œâ”€â”€ database/
+â”‚   â”‚   â”œâ”€â”€ schema.sql
+â”‚   â”‚   â”œâ”€â”€ seed.sql
+â”‚   â”‚   â”œâ”€â”€ migration_sales.sql
+â”‚   â”‚   â”œâ”€â”€ migration_suppliers.sql
+â”‚   â”‚   â””â”€â”€ ERD.png
+â”‚   â”œâ”€â”€ scripts/
+â”‚   â”‚   â”œâ”€â”€ db-init.mjs
+â”‚   â”‚   â””â”€â”€ smoke-test.mjs
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ config/
+â”‚   â”‚   â”œâ”€â”€ controllers/
+â”‚   â”‚   â”œâ”€â”€ db/
+â”‚   â”‚   â”œâ”€â”€ middlewares/
+â”‚   â”‚   â”œâ”€â”€ routes/
+â”‚   â”‚   â”œâ”€â”€ utils/
+â”‚   â”‚   â”œâ”€â”€ validators/
+â”‚   â”‚   â”œâ”€â”€ app.js
+â”‚   â”‚   â””â”€â”€ server.js
+â”‚   â”œâ”€â”€ uploads/
+â”‚   â”œâ”€â”€ api.md
+â”‚   â”œâ”€â”€ package.json
+â”‚   â””â”€â”€ README.md
+â”œâ”€â”€ flutter/
+â”‚   â”œâ”€â”€ lib/
+â”‚   â”‚   â”œâ”€â”€ config/
+â”‚   â”‚   â”œâ”€â”€ models/
+â”‚   â”‚   â”œâ”€â”€ screens/
+â”‚   â”‚   â”œâ”€â”€ services/
+â”‚   â”‚   â””â”€â”€ main.dart
+â”‚   â”œâ”€â”€ android/
+â”‚   â”œâ”€â”€ ios/
+â”‚   â”œâ”€â”€ web/
+â”‚   â”œâ”€â”€ test/
+â”‚   â”œâ”€â”€ netlify-build.sh
+â”‚   â””â”€â”€ pubspec.yaml
+â”œâ”€â”€ docs/
+â”‚   â”œâ”€â”€ SRS_INVENTRA.docx
+â”‚   â”œâ”€â”€ SRS_INVENTRA.pdf
+â”‚   â””â”€â”€ assets/
+â”œâ”€â”€ render.yaml
+â”œâ”€â”€ netlify.toml
+â”œâ”€â”€ README.md
+â””â”€â”€ .gitignore</pre>
+
+<p class="table-title">Tabel 4.10 Lapisan Backend</p>
+<table>
+  <tr><th style="width:22%;">Folder</th><th>Tanggung Jawab</th></tr>
+  <tr><td><code>src/routes</code></td><td>Mendefinisikan endpoint dan middleware per modul.</td></tr>
+  <tr><td><code>src/controllers</code></td><td>Menangani request, memanggil query, dan mengembalikan respons.</td></tr>
+  <tr><td><code>src/validators</code></td><td>Validasi body, parameter, dan query menggunakan Zod.</td></tr>
+  <tr><td><code>src/middlewares</code></td><td>Autentikasi JWT, otorisasi role, upload, error handler, dan 404.</td></tr>
+  <tr><td><code>src/db</code></td><td>Connection pool dan helper transaksi.</td></tr>
+  <tr><td><code>src/config</code></td><td>Environment dan konfigurasi Cloudinary.</td></tr>
+  <tr><td><code>src/utils</code></td><td><code>AppError</code>, <code>asyncHandler</code>, dan format respons.</td></tr>
+  <tr><td><code>database</code></td><td>Skema, seed, migrasi, dan ERD.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.11 Lapisan Flutter</p>
+<table>
+  <tr><th style="width:22%;">Folder</th><th>Tanggung Jawab</th></tr>
+  <tr><td><code>lib/config</code></td><td>Konfigurasi <code>ApiConfig</code> dan base URL API.</td></tr>
+  <tr><td><code>lib/models</code></td><td>Model <code>User</code> dan pemetaan data.</td></tr>
+  <tr><td><code>lib/screens</code></td><td>Layar login, register, dashboard, produk, kategori, supplier, stok, transaksi, riwayat, notifikasi, laporan, dan profil.</td></tr>
+  <tr><td><code>lib/services</code></td><td><code>ApiClient</code>, <code>AuthService</code>, dan <code>Session</code>.</td></tr>
+  <tr><td><code>lib/main.dart</code></td><td>Entry point aplikasi dan konfigurasi tema.</td></tr>
+  <tr><td><code>test</code></td><td>Widget test untuk login dan registrasi.</td></tr>
+</table>
+
+<p class="table-title">Tabel 4.12 Ringkasan Endpoint API</p>
+<table>
+  <tr><th style="width:16%;">Modul</th><th style="width:18%;">Method</th><th>Endpoint</th><th style="width:16%;">Akses</th></tr>
+  <tr><td>Health</td><td>GET</td><td><code>/api/health</code></td><td>Publik</td></tr>
+  <tr><td>Auth</td><td>POST</td><td><code>/api/auth/register</code></td><td>Publik</td></tr>
+  <tr><td>Auth</td><td>POST</td><td><code>/api/auth/login</code></td><td>Publik</td></tr>
+  <tr><td>Auth</td><td>GET</td><td><code>/api/auth/me</code></td><td>Login</td></tr>
+  <tr><td>Kategori</td><td>GET, POST</td><td><code>/api/categories</code></td><td>Login/Admin</td></tr>
+  <tr><td>Kategori</td><td>GET, PUT, DELETE</td><td><code>/api/categories/:id</code></td><td>Login/Admin</td></tr>
+  <tr><td>Supplier</td><td>GET, POST</td><td><code>/api/suppliers</code></td><td>Login/Admin</td></tr>
+  <tr><td>Supplier</td><td>GET, PUT, DELETE</td><td><code>/api/suppliers/:id</code></td><td>Login/Admin</td></tr>
+  <tr><td>Produk</td><td>GET</td><td><code>/api/products</code></td><td>Login</td></tr>
+  <tr><td>Produk</td><td>GET, PUT, DELETE</td><td><code>/api/products/:id</code></td><td>Login/Admin</td></tr>
+  <tr><td>Produk</td><td>POST</td><td><code>/api/products</code></td><td>Admin</td></tr>
+  <tr><td>Produk</td><td>POST</td><td><code>/api/products/:id/image</code></td><td>Admin</td></tr>
+  <tr><td>Stok</td><td>POST</td><td><code>/api/products/:id/stock</code></td><td>Admin, Staff</td></tr>
+  <tr><td>Stok</td><td>GET</td><td><code>/api/stock-movements</code></td><td>Admin</td></tr>
+  <tr><td>Penjualan</td><td>GET, POST</td><td><code>/api/sales</code></td><td>Admin, Staff</td></tr>
+  <tr><td>Penjualan</td><td>DELETE</td><td><code>/api/sales/:id</code></td><td>Admin</td></tr>
+  <tr><td>Pengguna</td><td>GET</td><td><code>/api/users</code></td><td>Admin</td></tr>
+</table>
+
+<h2>4.4 Pengujian</h2>
+<h3>4.4.1 Metode Blackbox</h3>
+<p>Pengujian menggunakan metode <i>blackbox</i> dengan fokus pada kesesuaian input, proses, dan output tanpa memeriksa struktur internal kode. Pengujian dilakukan melalui API, widget test Flutter, analisis statis, serta pemeriksaan manual antarmuka.</p>
+
+<h3>4.4.2 Lingkungan Pengujian</h3>
+<table>
+  <tr><th style="width:24%;">Komponen</th><th>Keterangan</th></tr>
+  <tr><td>Sistem operasi</td><td>Windows 11</td></tr>
+  <tr><td>Backend</td><td>Node.js, Express, PostgreSQL lokal</td></tr>
+  <tr><td>Frontend</td><td>Flutter web (Chrome) dan widget test</td></tr>
+  <tr><td>Akun uji</td><td><code>admin@toko.test</code> dan <code>user@toko.test</code></td></tr>
+  <tr><td>Perintah uji</td><td><code>npm test</code>, <code>flutter analyze</code>, <code>flutter test</code>, <code>flutter build web</code></td></tr>
+</table>
+
+<h3>4.4.3 Skenario dan Hasil Pengujian</h3>
+<p class="table-title">Tabel 4.13 Hasil Pengujian Blackbox</p>
+<table>
+  <tr><th style="width:6%;">No</th><th style="width:18%;">Modul</th><th style="width:30%;">Skenario</th><th style="width:18%;">Hasil yang Diharapkan</th><th style="width:16%;">Hasil Aktual</th><th style="width:8%;">Status</th></tr>
+  <tr><td>1</td><td>Health</td><td>GET <code>/api/health</code></td><td>Status 200, database connected</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>2</td><td>Auth</td><td>GET <code>/api/products</code> tanpa token</td><td>Status 401</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>3</td><td>Auth</td><td>Register dengan email tidak valid dan password pendek</td><td>Status 422 dan pesan validasi</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>4</td><td>Auth</td><td>Login admin dengan kredensial benar</td><td>Status 200, token diterima</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>5</td><td>Auth</td><td>Login staff dengan kredensial benar</td><td>Status 200, token diterima</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>6</td><td>Auth</td><td>Login dengan password salah</td><td>Status 401</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>7</td><td>Auth</td><td>GET <code>/api/auth/me</code> dengan token admin</td><td>Status 200, data admin</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>8</td><td>Produk</td><td>Staff mengambil daftar produk</td><td>Status 200</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>9</td><td>Kategori</td><td>Admin membuat kategori baru</td><td>Status 201</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>10</td><td>Kategori</td><td>Staff membuat kategori</td><td>Status 403</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>11</td><td>Produk</td><td>Admin membuat produk baru</td><td>Status 201</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>12</td><td>Produk</td><td>Staff membuat produk</td><td>Status 403</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>13</td><td>Stok</td><td>Staff menambah stok masuk</td><td>Status 201, stok bertambah</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>14</td><td>Stok</td><td>Stok keluar melebihi stok tersedia</td><td>Status 400, stok tidak berubah</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>15</td><td>Upload</td><td>Admin upload gambar JPG valid</td><td>Status 200, <code>image_url</code> terisi</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>16</td><td>Upload</td><td>Mengakses URL gambar hasil upload</td><td>Status 200, konten gambar</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>17</td><td>Upload</td><td>Upload file dengan format tidak didukung</td><td>Status 422</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>18</td><td>Stok</td><td>Admin mengambil riwayat stok</td><td>Status 200</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>19</td><td>Stok</td><td>Staff mengambil riwayat stok</td><td>Status 403</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>20</td><td>Pengguna</td><td>Admin mengambil daftar pengguna</td><td>Status 200</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>21</td><td>Produk</td><td>Membuat produk dengan SKU duplikat</td><td>Status 409</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>22</td><td>Produk</td><td>Mengambil produk yang tidak ada</td><td>Status 404</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>23</td><td>Produk</td><td>Admin menghapus produk uji</td><td>Status 200</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>24</td><td>Kategori</td><td>Admin menghapus kategori uji</td><td>Status 200</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>25</td><td>Widget</td><td>Widget test login dan registrasi</td><td>2 test lulus</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>26</td><td>Analisis</td><td><code>flutter analyze</code></td><td>Tidak ada error</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>27</td><td>Build</td><td><code>flutter build web --release</code></td><td>Build berhasil</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>28</td><td>Penjualan</td><td>Transaksi dengan stok cukup</td><td>Status 201, total benar, stok berkurang, movement out</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>29</td><td>Penjualan</td><td>Transaksi dengan stok tidak cukup</td><td>Status 400, seluruh perubahan rollback</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>30</td><td>Penjualan</td><td>Admin menghapus transaksi</td><td>Status 200, stok kembali, movement in</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>31</td><td>Produk</td><td>Filter <code>low_stock=true</code></td><td>Hanya produk <code>stock &le; min_stock</code></td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>32</td><td>Produk</td><td>Pencarian nama/SKU</td><td>Hasil sesuai kata kunci</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>33</td><td>Pagination</td><td>Limit default dan maksimal</td><td>Default 10, maksimal 100</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>34</td><td>Kategori</td><td>Hapus kategori yang masih memiliki produk</td><td>Status 409</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>35</td><td>Supplier</td><td>CRUD supplier oleh admin</td><td>Status 200/201</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>36</td><td>UI</td><td>Tombol admin tidak tampil untuk staff</td><td>Tombol tersembunyi</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>37</td><td>Auth</td><td>Logout menghapus sesi</td><td>Kembali ke halaman login</td><td>Sesuai</td><td>Lulus</td></tr>
+  <tr><td>38</td><td>Responsif</td><td>Tampilan web pada lebar 430 px dan 1440 px</td><td>Layout menyesuaikan</td><td>Sesuai</td><td>Lulus</td></tr>
+</table>
+
+<h3>4.4.4 Hasil dan Analisis</h3>
+<p>Seluruh skenario utama lulus tanpa cacat kritis. Pengujian API otomatis mencakup 24 pemeriksaan dan seluruhnya lulus. Widget test Flutter untuk login dan registrasi lulus 2 dari 2. Analisis statis tidak menemukan error, dan build web berhasil. Pengujian manual menunjukkan pembatasan role berjalan sesuai harapan.</p>
+<div class="note">
+  <b>Catatan pengujian:</b> supplier belum terhubung ke produk, layar manajemen pengguna belum tersedia di Flutter, dan notifikasi stok masih berupa daftar di aplikasi. Ketiga hal tersebut sudah dicatat sebagai batasan dan saran pengembangan, bukan cacat yang menghambat fungsi utama.
+</div>
+
+<h2>4.5 Deployment</h2>
+<h3>4.5.1 Arsitektur Deployment</h3>
+<div class="figure">
+  <img class="diagram" src="assets/architecture.png" alt="Arsitektur deployment INVENTRA">
+  <p class="caption">Gambar 4.7 Arsitektur deployment INVENTRA</p>
+</div>
+
+<h3>4.5.2 Repository dan Branching</h3>
+<p>Kode disimpan pada repository GitHub. Branch yang digunakan:</p>
+<table>
+  <tr><th style="width:22%;">Branch</th><th>Fungsi</th></tr>
+  <tr><td><code>main</code></td><td>Versi stabil yang siap dinilai/di-deploy.</td></tr>
+  <tr><td><code>develop</code></td><td>Integrasi fitur sebelum masuk ke main.</td></tr>
+  <tr><td><code>feature/srs</code></td><td>Penyusunan dokumen SRS, diagram, dan lampiran.</td></tr>
+  <tr><td><code>feature/deployment</code></td><td>Konfigurasi Netlify/Vercel, Render, Aiven, dan environment produksi.</td></tr>
+</table>
+<p>Konvensi commit yang digunakan: <code>feat:</code> untuk fitur, <code>fix:</code> untuk perbaikan, <code>docs:</code> untuk dokumentasi, dan <code>chore:</code> untuk konfigurasi. Perubahan digabungkan melalui pull request ke <code>develop</code>, kemudian ke <code>main</code> setelah pengujian.</p>
+
+<h3>4.5.3 Aiven for PostgreSQL</h3>
+<ol>
+  <li>Buat service PostgreSQL pada Aiven, pilih region terdekat (Singapore), lalu catat host, port, database, user, dan password.</li>
+  <li>Aktifkan SSL. Pada backend, set <code>DB_SSL=true</code>. Kode menggunakan <code>ssl: { rejectUnauthorized: false }</code> agar dapat terhubung tanpa memasang CA cert secara manual.</li>
+  <li>Set <code>DB_NAME=defaultdb</code> dan <code>DB_ADMIN_DB=defaultdb</code> untuk Aiven.</li>
+  <li>Impor skema dan seed melalui <code>psql</code> dengan opsi <code>sslmode=require</code>.</li>
+  <li>Jalankan <code>npm run db:init</code> hanya jika koneksi admin diizinkan. Script akan melewati pembuatan schema jika tabel <code>users</code> sudah ada, kecuali <code>DB_RESET=true</code>.</li>
+</ol>
+<div class="warning">
+  <b>Peringatan:</b> <code>database/schema.sql</code> menghapus tabel lama sebelum membuat ulang. Jangan jalankan pada database produksi yang sudah berisi data. Gunakan <code>DB_RESET=true</code> hanya pada database kosong.
+</div>
+
+<h3>4.5.4 Backend Render</h3>
+<ol>
+  <li>Hubungkan repository GitHub ke Render dan pilih <i>Web Service</i>.</li>
+  <li>Set root directory <code>backend</code>, build command <code>npm ci</code>, dan start command <code>npm start</code>.</li>
+  <li>Tambahkan environment variable Aiven, <code>JWT_SECRET</code>, <code>DB_SSL=true</code>, dan kredensial Cloudinary.</li>
+  <li>Set health check path <code>/api/health</code>.</li>
+  <li>Deploy dan uji endpoint health sebelum menghubungkan frontend.</li>
+</ol>
+<p>File <code>render.yaml</code> sudah disediakan sebagai blueprint. Free tier Render dapat mengalami <i>cold start</i> sehingga permintaan pertama terasa lebih lambat.</p>
+
+<h3>4.5.5 Frontend Netlify atau Vercel</h3>
+<p><b>Netlify (utama):</b></p>
+<ol>
+  <li>Hubungkan repository GitHub ke Netlify.</li>
+  <li>Set base directory <code>flutter</code>, build command <code>bash netlify-build.sh</code>, dan publish directory <code>build/web</code>.</li>
+  <li>Tambahkan environment variable <code>API_BASE_URL</code> yang berisi URL backend Render, misalnya <code>https://inventra-api.onrender.com</code>.</li>
+  <li>Deploy. File <code>netlify.toml</code> sudah mengatur redirect SPA ke <code>index.html</code>.</li>
+</ol>
+<p><b>Vercel (alternatif):</b> build web secara lokal dengan <code>flutter build web --release --dart-define=API_BASE_URL=...</code>, lalu deploy folder <code>build/web</code> sebagai static site. Pastikan URL API menggunakan HTTPS dan endpoint CORS dapat diakses.</p>
+
+<h3>4.5.6 Cloudinary</h3>
+<p>Pada lingkungan produksi, gunakan Cloudinary agar gambar produk tidak hilang ketika instance backend restart. Isi <code>CLOUDINARY_CLOUD_NAME</code>, <code>CLOUDINARY_API_KEY</code>, dan <code>CLOUDINARY_API_SECRET</code>. Jika variabel kosong, backend menyimpan gambar di folder <code>uploads</code> lokal.</p>
+
+<h3>4.5.7 Environment Variable</h3>
+<p class="table-title">Tabel 4.14 Environment Variable Produksi</p>
+<table>
+  <tr><th style="width:26%;">Variabel</th><th style="width:24%;">Contoh</th><th>Keterangan</th></tr>
+  <tr><td><code>NODE_ENV</code></td><td>production</td><td>Mode aplikasi.</td></tr>
+  <tr><td><code>PORT</code></td><td>3000</td><td>Port backend; Render dapat mengatur otomatis.</td></tr>
+  <tr><td><code>DB_HOST</code></td><td>pg-xxxx.aivencloud.com</td><td>Host Aiven.</td></tr>
+  <tr><td><code>DB_PORT</code></td><td>12345</td><td>Port Aiven.</td></tr>
+  <tr><td><code>DB_NAME</code></td><td>defaultdb</td><td>Nama database Aiven.</td></tr>
+  <tr><td><code>DB_USER</code></td><td>avnadmin</td><td>User Aiven.</td></tr>
+  <tr><td><code>DB_PASSWORD</code></td><td>******</td><td>Password Aiven; simpan sebagai secret.</td></tr>
+  <tr><td><code>DB_SSL</code></td><td>true</td><td>Aktifkan koneksi SSL.</td></tr>
+  <tr><td><code>DB_ADMIN_DB</code></td><td>defaultdb</td><td>Database untuk koneksi admin saat <code>db:init</code>.</td></tr>
+  <tr><td><code>JWT_SECRET</code></td><td>string acak panjang</td><td>Secret token; wajib diganti.</td></tr>
+  <tr><td><code>JWT_EXPIRES_IN</code></td><td>1d</td><td>Masa berlaku token.</td></tr>
+  <tr><td><code>UPLOAD_DIR</code></td><td>uploads</td><td>Folder upload lokal.</td></tr>
+  <tr><td><code>CLOUDINARY_*</code></td><td>-</td><td>Kredensial Cloudinary.</td></tr>
+  <tr><td><code>API_BASE_URL</code></td><td>https://api.example.com</td><td>Dipakai saat build Flutter web.</td></tr>
+</table>
+
+<h3>4.5.8 Uji Produksi</h3>
+<ol>
+  <li>Buka <code>https://&lt;backend&gt;/api/health</code> dan pastikan database connected.</li>
+  <li>Jalankan <code>API_URL=https://&lt;backend&gt; npm test</code> dari folder <code>backend</code>.</li>
+  <li>Buka frontend, login admin, lalu uji dashboard, produk, stok, dan transaksi.</li>
+  <li>Pastikan gambar produk dapat diakses melalui URL Cloudinary.</li>
+  <li>Uji role staff: tombol admin tidak muncul dan endpoint admin mengembalikan 403.</li>
+</ol>
+
+<h3>4.5.9 URL Deployment</h3>
+<table>
+  <tr><th style="width:24%;">Layanan</th><th>URL</th><th style="width:18%;">Status</th></tr>
+  <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td><td>Diisi setelah deploy</td></tr>
+  <tr><td>Backend API</td><td>[https://inventra-api.onrender.com]</td><td>Diisi setelah deploy</td></tr>
+  <tr><td>Repository</td><td>[https://github.com/username/inventra]</td><td>Diisi setelah push</td></tr>
+  <tr><td>Database</td><td>Aiven PostgreSQL (private)</td><td>Kredensial tidak dipublikasikan</td></tr>
+</table>
+
+<h2>4.6 Keamanan dan Pemeliharaan</h2>
+<ul>
+  <li>Password disimpan sebagai hash bcrypt; password asli tidak pernah dikembalikan API.</li>
+  <li>JWT memiliki masa berlaku satu hari dan disimpan di sesi lokal. Untuk pengembangan lanjutan, gunakan secure storage dan refresh token.</li>
+  <li>Endpoint privat memerlukan Bearer token; endpoint admin diperiksa dengan middleware role.</li>
+  <li>Validasi input menggunakan Zod, termasuk tipe, panjang, format email, dan batas upload.</li>
+  <li>CORS saat ini terbuka untuk memudahkan pengembangan. Produksi disarankan membatasi origin ke domain frontend.</li>
+  <li>Gunakan HTTPS pada frontend, backend, dan database. Jangan menyimpan secret di repository.</li>
+  <li>Lakukan pencadangan database Aiven secara berkala dan uji proses restore.</li>
+  <li>Perbarui dependency secara berkala dan pantau log error backend.</li>
+</ul>
+
+<h1>BAB V PENUTUP</h1>
+
+<h2>5.1 Kesimpulan</h2>
+<ol>
+  <li>INVENTRA adalah sistem manajemen stok barang toko berbasis web dan Android yang mencakup autentikasi, master data, stok, penjualan, notifikasi, dan laporan.</li>
+  <li>Kebutuhan fungsional dan non-fungsional telah dianalisis dan dipetakan ke fitur, API, basis data, serta rancangan antarmuka.</li>
+  <li>Basis data tujuh tabel telah dinormalisasi hingga 3NF, dilengkapi foreign key, check constraint, indeks, trigger, dan transaksi atomik.</li>
+  <li>Pengujian blackbox, widget test, analisis statis, dan build web menunjukkan hasil lulus tanpa cacat kritis.</li>
+  <li>Deployment dirancang menggunakan GitHub, Netlify atau Vercel, Render, Aiven PostgreSQL, dan Cloudinary.</li>
+  <li>Dokumen ini dapat menjadi acuan pengembangan, pengujian, dan penilaian proyek.</li>
+</ol>
+
+<h2>5.2 Saran Pengembangan</h2>
+<ul>
+  <li>Menghubungkan supplier dengan produk dan menambahkan purchase order.</li>
+  <li>Menambahkan layar manajemen pengguna (tambah, ubah, nonaktifkan) untuk admin.</li>
+  <li>Menambahkan barcode/QR scanning untuk mempercepat input produk.</li>
+  <li>Menambahkan push notification untuk stok menipis.</li>
+  <li>Menambahkan laporan penjualan per periode, laba kotor, dan ekspor Excel/PDF.</li>
+  <li>Menambahkan multi-toko/multi-gudang dan transfer stok.</li>
+  <li>Menambahkan mode offline atau cache data untuk koneksi tidak stabil.</li>
+  <li>Menambahkan refresh token, secure storage, dan pembatasan CORS di produksi.</li>
+  <li>Menambahkan automated test API yang lebih lengkap dan CI/CD GitHub Actions.</li>
+  <li>Melakukan audit aksesibilitas dan pengujian pada perangkat Android nyata.</li>
+</ul>
+
+<h2>5.3 Penutup</h2>
+<p>Dokumen SRS ini disusun sebagai gambaran menyeluruh sistem INVENTRA. Dengan adanya dokumen ini, diharapkan pengembangan, pengujian, dan deployment dapat dilakukan secara terarah. Penyusun menyadari masih terdapat keterbatasan, sehingga masukan dari guru dan penguji sangat diharapkan untuk penyempurnaan sistem.</p>
+
+<h1>LAMPIRAN</h1>
+
+<h2>Lampiran A. Akun Pengujian</h2>
+<table>
+  <tr><th style="width:18%;">Role</th><th style="width:28%;">Email</th><th style="width:18%;">Password</th><th>Keterangan</th></tr>
+  <tr><td>Admin</td><td><code>admin@toko.test</code></td><td><code>admin123</code></td><td>Akses seluruh fitur.</td></tr>
+  <tr><td>Staff</td><td><code>user@toko.test</code></td><td><code>user123</code></td><td>Akses operasional tanpa master data dan pembatalan.</td></tr>
+</table>
+
+<h2>Lampiran B. Perintah Menjalankan Aplikasi</h2>
+<pre># Backend
+cd backend
+npm install
+copy .env.example .env
+npm run db:init
+npm start
+
+# Frontend web
+cd flutter
+flutter pub get
+flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:3000
+
+# Build web produksi
+flutter build web --release --dart-define=API_BASE_URL=https://inventra-api.onrender.com
+
+# Pengujian
+cd backend
+npm test
+cd ..\flutter
+flutter analyze
+flutter test</pre>
+
+<h2>Lampiran C. Screenshot Aplikasi</h2>
+<p>Dokumentasi tampilan berikut diambil dari aplikasi INVENTRA yang berjalan pada lingkungan lokal. Sebagian data pada screenshot merupakan data uji, termasuk produk contoh dan transaksi percobaan.</p>
+<div class="figure">
+  <img src="assets/login.png" alt="Halaman login INVENTRA" style="width:52%;">
+  <p class="caption">Gambar L.1 Halaman login INVENTRA</p>
+</div>
+<div class="figure">
+  <img src="assets/dashboard.png" alt="Dashboard INVENTRA" style="width:52%;">
+  <p class="caption">Gambar L.2 Dashboard INVENTRA</p>
+</div>
+<div class="figure">
+  <img src="assets/products.png" alt="Halaman produk INVENTRA" style="width:52%;">
+  <p class="caption">Gambar L.3 Daftar produk INVENTRA</p>
+</div>
+<div class="figure">
+  <img src="assets/transaction.png" alt="Halaman transaksi INVENTRA" style="width:52%;">
+  <p class="caption">Gambar L.4 Halaman transaksi gabungan (penjualan, stok masuk, penyesuaian)</p>
+</div>
+<div class="figure">
+  <img src="assets/report.png" alt="Halaman laporan INVENTRA" style="width:52%;">
+  <p class="caption">Gambar L.5 Halaman laporan ringkasan</p>
+</div>
+
+<h2>Lampiran D. Tautan Repository dan Deployment</h2>
+<table>
+  <tr><th style="width:24%;">Layanan</th><th>URL</th></tr>
+  <tr><td>Repository GitHub</td><td>[https://github.com/username/inventra]</td></tr>
+  <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td></tr>
+  <tr><td>Backend API</td><td>[https://inventra-api.onrender.com]</td></tr>
+  <tr><td>Dokumentasi API</td><td><code>/api/health</code> dan <code>backend/api.md</code></td></tr>
+</table>
+
+<h2>Lampiran E. Daftar Pustaka</h2>
+<ol>
+  <li>Flutter Team. <i>Flutter Documentation</i>. https://docs.flutter.dev</li>
+  <li>Express. <i>Express.js Documentation</i>. https://expressjs.com</li>
+  <li>PostgreSQL Global Development Group. <i>PostgreSQL Documentation</i>. https://www.postgresql.org/docs</li>
+  <li>Aiven. <i>Aiven for PostgreSQL Documentation</i>. https://docs.aiven.io</li>
+  <li>Netlify. <i>Netlify Documentation</i>. https://docs.netlify.com</li>
+  <li>Render. <i>Render Documentation</i>. https://render.com/docs</li>
+  <li>Cloudinary. <i>Cloudinary Documentation</i>. https://cloudinary.com/documentation</li>
+  <li>OWASP. <i>JSON Web Token Cheat Sheet</i>. https://cheatsheetseries.owasp.org</li>
+</ol>
+
+</body>
+</html>
+

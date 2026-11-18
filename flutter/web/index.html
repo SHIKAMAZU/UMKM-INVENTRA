@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Aplikasi manajemen stok barang toko INVENTRA.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="INVENTRA">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>INVENTRA - Sistem Manajemen Stok Barang Toko</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #e6f7ef;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #e6f7ef 0%, #9ee6cd 100%);
+      color: #0b5d4e;
+      transition: opacity 250ms ease;
+    }
+
+    #splash .mark {
+      width: 88px;
+      height: 88px;
+      display: grid;
+      place-items: center;
+      border-radius: 26px;
+      background: #d7f7e8;
+      font-size: 42px;
+    }
+
+    #splash .brand {
+      margin-top: 8px;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    #splash .tagline {
+      font-size: 14px;
+      color: #55706a;
+    }
+
+    #splash .spinner {
+      width: 30px;
+      height: 30px;
+      margin-top: 14px;
+      border: 3px solid #b7e6d5;
+      border-top-color: #0e7a5f;
+      border-radius: 50%;
+      animation: inventra-spin 800ms linear infinite;
+    }
+
+    #splash .loading {
+      font-size: 13px;
+      color: #55706a;
+    }
+
+    @keyframes inventra-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="splash" role="status" aria-live="polite">
+    <div class="mark">&#128722;</div>
+    <div class="brand">INVENTRA</div>
+    <div class="tagline">Sistem Manajemen Stok Barang Toko</div>
+    <div class="spinner"></div>
+    <div class="loading">Menyiapkan aplikasi...</div>
+  </div>
+
+  <script>
+    (function () {
+      var splash = document.getElementById('splash');
+      var hidden = false;
+      function hideSplash() {
+        if (hidden || !splash) return;
+        hidden = true;
+        splash.style.opacity = '0';
+        window.setTimeout(function () {
+          if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 280);
+      }
+      window.addEventListener('flutter-first-frame', hideSplash);
+      window.setTimeout(hideSplash, 20000);
+    })();
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

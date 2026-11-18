@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+!backend/.env.example
+!backend/.env.production.example
+
+# Runtime data
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.log
+backend/server*.log
+
+# Flutter
+flutter/.dart_tool/
+flutter/.flutter-plugins-dependencies
+flutter/build/
+flutter/.idea/
+flutter/*.iml
+flutter/android/.gradle/
+flutter/android/local.properties
+
+# Editor & OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary
+tmp/
+temp/

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ERD - Sistem Manajemen Informasi Stok Barang Toko</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f3f6fb;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #cbd5e1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 24px 48px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+  header { margin-bottom: 20px; }
+  h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.01em; }
+  p.sub { margin: 0; color: var(--muted); font-size: 13px; }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    margin: 16px 0; font-size: 12px; color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 16px; padding: 0 4px;
+    border-radius: 4px; font-size: 9px; font-weight: 700; color: #fff;
+  }
+  .chip.pk { background: #2563eb; }
+  .chip.fk { background: #0d9488; }
+  .chip.u  { background: #d97706; }
+  .canvas {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    overflow: auto;
+  }
+  svg { display: block; min-width: 900px; width: 100%; height: auto; }
+  footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
+  code { font-family: Consolas, "Cascadia Code", monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ERD - Sistem Manajemen Informasi Stok Barang Toko</h1>
+    <p class="sub">PostgreSQL &middot; dibuat dari <code>database/schema.sql</code>, <code>database/migration_sales.sql</code>, dan <code>database/migration_suppliers.sql</code></p>
+  </header>
+
+  <div class="legend">
+    <span><i class="chip pk">PK</i> Primary Key</span>
+    <span><i class="chip fk">FK</i> Foreign Key</span>
+    <span><i class="chip u">U</i> Unique</span>
+    <span><b>1 : N</b> relasi satu ke banyak</span>
+  </div>
+
+  <div class="canvas">
+    <svg id="erd" viewBox="0 0 1160 900" role="img" aria-label="Diagram relasi tabel database"></svg>
+  </div>
+
+  <footer>
+    Relasi: <code>categories (1) - (N) products</code>,
+    <code>products (1) - (N) stock_movements</code>,
+    <code>users (1) - (N) stock_movements</code>,
+    <code>users (1) - (N) sales</code>,
+    <code>sales (1) - (N) sale_items</code>,
+    <code>products (1) - (N) sale_items</code>.
+    Buka file ini dengan double-click, atau tekan <b>Ctrl+P</b> untuk cetak / simpan PDF.
+  </footer>
+</div>
+
+<script>
+const HEADER_H = 38;
+const ROW_H = 22;
+const PAD_BOTTOM = 8;
+
+const tables = [
+  {
+    name: 'users',
+    x: 760, y: 40, w: 300,
+    color: '#1d4ed8',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'name', type: 'VARCHAR(100)' },
+      { name: 'email', type: 'VARCHAR(150)', key: 'U' },
+      { name: 'password_hash', type: 'TEXT' },
+      { name: 'role', type: 'user_role (ENUM)' },
+      { name: 'is_active', type: 'BOOLEAN' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+      { name: 'updated_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+  {
+    name: 'categories',
+    x: 20, y: 40, w: 260,
+    color: '#7c3aed',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'name', type: 'VARCHAR(100)', key: 'U' },
+      { name: 'description', type: 'TEXT' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+      { name: 'updated_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+  {
+    name: 'products',
+    x: 20, y: 280, w: 340,
+    color: '#ea580c',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'category_id', type: 'BIGINT', key: 'FK' },
+      { name: 'sku', type: 'VARCHAR(50)', key: 'U' },
+      { name: 'name', type: 'VARCHAR(150)' },
+      { name: 'description', type: 'TEXT' },
+      { name: 'price', type: 'NUMERIC(12,2)' },
+      { name: 'stock', type: 'INTEGER' },
+      { name: 'min_stock', type: 'INTEGER' },
+      { name: 'image_url', type: 'TEXT' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+      { name: 'updated_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+  {
+    name: 'stock_movements',
+    x: 760, y: 320, w: 340,
+    color: '#0d9488',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'product_id', type: 'BIGINT', key: 'FK' },
+      { name: 'user_id', type: 'BIGINT', key: 'FK' },
+      { name: 'type', type: 'movement_type (ENUM)' },
+      { name: 'quantity', type: 'INTEGER' },
+      { name: 'note', type: 'TEXT' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+  {
+    name: 'sales',
+    x: 760, y: 600, w: 300,
+    color: '#be123c',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'user_id', type: 'BIGINT', key: 'FK' },
+      { name: 'total', type: 'NUMERIC(14,2)' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+  {
+    name: 'sale_items',
+    x: 20, y: 640, w: 380,
+    color: '#0891b2',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'sale_id', type: 'BIGINT', key: 'FK' },
+      { name: 'product_id', type: 'BIGINT', key: 'FK' },
+      { name: 'product_name', type: 'VARCHAR(150)' },
+      { name: 'price', type: 'NUMERIC(12,2)' },
+      { name: 'quantity', type: 'INTEGER' },
+      { name: 'subtotal', type: 'NUMERIC(14,2)' },
+    ],
+  },
+  {
+    name: 'suppliers',
+    x: 400, y: 40, w: 300,
+    color: '#0369a1',
+    fields: [
+      { name: 'id', type: 'BIGSERIAL', key: 'PK' },
+      { name: 'name', type: 'VARCHAR(150)', key: 'U' },
+      { name: 'phone', type: 'VARCHAR(30)' },
+      { name: 'email', type: 'VARCHAR(150)' },
+      { name: 'address', type: 'TEXT' },
+      { name: 'created_at', type: 'TIMESTAMPTZ' },
+      { name: 'updated_at', type: 'TIMESTAMPTZ' },
+    ],
+  },
+];
+
+const relations = [
+  {
+    path: 'M 150 196 V 280',
+    labelFrom: { x: 150, y: 214, text: '1' },
+    labelTo: { x: 150, y: 262, text: 'N' },
+    caption: 'category_id',
+    captionPos: { x: 164, y: 240, rotate: -90 },
+  },
+  {
+    path: 'M 190 568 V 640',
+    labelFrom: { x: 190, y: 584, text: '1' },
+    labelTo: { x: 190, y: 622, text: 'N' },
+    caption: 'product_id',
+    captionPos: { x: 204, y: 606, rotate: -90 },
+  },
+  {
+    path: 'M 360 329 H 650 V 391 H 760',
+    labelFrom: { x: 380, y: 329, text: '1' },
+    labelTo: { x: 735, y: 391, text: 'N' },
+    caption: 'product_id',
+    captionPos: { x: 540, y: 383, rotate: 0 },
+  },
+  {
+    path: 'M 910 262 V 320',
+    labelFrom: { x: 910, y: 278, text: '1' },
+    labelTo: { x: 910, y: 302, text: 'N' },
+    caption: 'user_id',
+    captionPos: { x: 924, y: 293, rotate: 90 },
+  },
+  {
+    path: 'M 1060 89 H 1120 V 671 H 1060',
+    labelFrom: { x: 1060, y: 89, text: '1' },
+    labelTo: { x: 1060, y: 671, text: 'N' },
+    caption: 'user_id',
+    captionPos: { x: 1128, y: 380, rotate: 90 },
+  },
+  {
+    path: 'M 760 671 H 580 V 711 H 400',
+    labelFrom: { x: 740, y: 671, text: '1' },
+    labelTo: { x: 420, y: 711, text: 'N' },
+    caption: 'sale_id',
+    captionPos: { x: 594, y: 691, rotate: 90 },
+  },
+];
+
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('erd');
+
+function el(tag, attrs = {}, text = null) {
+  const node = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+  if (text !== null) node.textContent = text;
+  svg.appendChild(node);
+  return node;
+}
+
+function boxHeight(t) {
+  return HEADER_H + t.fields.length * ROW_H + PAD_BOTTOM;
+}
+
+for (const t of tables) {
+  const h = boxHeight(t);
+
+  el('rect', {
+    x: t.x, y: t.y, width: t.w, height: h,
+    rx: 10, fill: '#ffffff', stroke: '#cbd5e1', 'stroke-width': 1.5,
+  });
+
+  el('path', {
+    d: `M ${t.x} ${t.y + HEADER_H} H ${t.x + t.w}`,
+    stroke: '#e2e8f0', 'stroke-width': 1,
+  });
+
+  el('rect', {
+    x: t.x, y: t.y, width: t.w, height: HEADER_H,
+    rx: 10, fill: t.color,
+  });
+  el('rect', {
+    x: t.x, y: t.y + HEADER_H - 10, width: t.w, height: 10,
+    fill: t.color,
+  });
+
+  el('text', {
+    x: t.x + 14, y: t.y + 24,
+    fill: '#ffffff', 'font-size': 14, 'font-weight': 700,
+    'font-family': 'Consolas, monospace',
+  }, t.name);
+
+  t.fields.forEach((f, i) => {
+    const rowY = t.y + HEADER_H + i * ROW_H;
+    const textY = rowY + 15;
+
+    if (i % 2 === 0) {
+      el('rect', {
+        x: t.x + 1, y: rowY, width: t.w - 2, height: ROW_H,
+        fill: '#f8fafc',
+      });
+    }
+
+    if (f.key) {
+      const cls = f.key === 'PK' ? '#2563eb' : f.key === 'FK' ? '#0d9488' : '#d97706';
+      el('rect', {
+        x: t.x + 8, y: rowY + 4, width: 24, height: 14,
+        rx: 3, fill: cls,
+      });
+      el('text', {
+        x: t.x + 20, y: rowY + 14,
+        fill: '#ffffff', 'font-size': 8.5, 'font-weight': 700,
+        'text-anchor': 'middle', 'font-family': 'Segoe UI, sans-serif',
+      }, f.key);
+    }
+
+    el('text', {
+      x: t.x + 38, y: textY,
+      fill: f.key ? '#0f172a' : '#334155',
+      'font-size': 12, 'font-weight': f.key ? 600 : 400,
+      'font-family': 'Consolas, monospace',
+    }, f.name);
+
+    el('text', {
+      x: t.x + t.w - 10, y: textY,
+      fill: '#64748b', 'font-size': 10.5,
+      'text-anchor': 'end', 'font-family': 'Consolas, monospace',
+    }, f.type);
+  });
+}
+
+for (const r of relations) {
+  el('path', {
+    d: r.path,
+    fill: 'none', stroke: '#475569', 'stroke-width': 1.8,
+    'stroke-linejoin': 'round', 'stroke-linecap': 'round',
+  });
+
+  for (const lbl of [r.labelFrom, r.labelTo]) {
+    el('circle', { cx: lbl.x, cy: lbl.y, r: 9, fill: '#ffffff', stroke: '#475569', 'stroke-width': 1.2 });
+    el('text', {
+      x: lbl.x, y: lbl.y + 3.5,
+      fill: '#334155', 'font-size': 10, 'font-weight': 700,
+      'text-anchor': 'middle', 'font-family': 'Segoe UI, sans-serif',
+    }, lbl.text);
+  }
+
+  if (r.caption) {
+    const p = r.captionPos;
+    const rot = p.rotate ? `rotate(${p.rotate} ${p.x} ${p.y})` : '';
+    el('text', {
+      x: p.x, y: p.y,
+      fill: '#64748b', 'font-size': 9,
+      'text-anchor': 'middle',
+      'font-family': 'Consolas, monospace',
+      transform: rot,
+    }, r.caption);
+  }
+}
+</script>
+</body>
+</html>
