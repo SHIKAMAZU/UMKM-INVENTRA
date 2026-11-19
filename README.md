@@ -90,12 +90,12 @@ flutter build web --release
 
 Panduan lengkap ada di [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Ringkasan platform:
 
-- Frontend: Netlify (utama) atau Vercel.
-- Backend: Vercel (serverless function melalui `backend/api/index.js`).
-- Database: Aiven for PostgreSQL.
-- Gambar produk: Cloudinary.
+- Frontend: Netlify — https://silver-cocada-e5a190.netlify.app
+- Backend: Vercel — https://inventra-stok-api.vercel.app
+- Database: Aiven for PostgreSQL (aktif, kredensial privat).
+- Gambar produk: Cloudinary (opsional; fallback folder `uploads` lokal).
 
-Status URL produksi akan diisi setelah proses deploy selesai.
+Health check backend: https://inventra-stok-api.vercel.app/api/health
 
 ## Dokumentasi
 

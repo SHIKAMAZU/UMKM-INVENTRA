@@ -4,6 +4,16 @@ Dokumen ini menjelaskan langkah deploy INVENTRA ke layanan gratis: **Aiven for P
 
 > Ganti semua placeholder `[GANTI_...]` dengan nilai milik Anda. Jangan commit file `.env` atau kredensial ke repository.
 
+## Status Deployment
+
+| Layanan | URL | Status |
+|---|---|---|
+| Frontend Netlify | https://silver-cocada-e5a190.netlify.app | Aktif |
+| Backend Vercel | https://inventra-stok-api.vercel.app | Aktif |
+| Health check | https://inventra-stok-api.vercel.app/api/health | Database connected |
+| Database | Aiven for PostgreSQL - `pg-37025a25-project-crudd.a.aivencloud.com` | Aktif |
+| Repository | https://github.com/SHIKAMAZU/UMKM-INVENTRA | Aktif |
+
 ## 1. Prasyarat
 
 - Akun GitHub, Aiven, Vercel, dan Netlify.
