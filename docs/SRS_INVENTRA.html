@@ -385,7 +385,7 @@
 <table>
   <tr><th style="width:7%;">ID</th><th style="width:14%;">Modul</th><th style="width:20%;">Fitur</th><th style="width:13%;">Aktor</th><th style="width:8%;">Prioritas</th><th>Deskripsi</th></tr>
   <tr><td>F-01</td><td>Autentikasi</td><td>Registrasi akun</td><td>Publik</td><td>Must</td><td>Membuat akun baru dengan nama 3&ndash;100 karakter, email valid dan unik, serta password 6&ndash;72 karakter. Role otomatis <code>staff</code>.</td></tr>
-  <tr><td>F-02</td><td>Autentikasi</td><td>Login dan logout</td><td>Admin, Staff</td><td>Must</td><td>Login menggunakan email dan password. Token JWT berlaku satu hari. Logout menghapus sesi lokal.</td></tr>
+  <tr><td>F-02</td><td>Autentikasi</td><td>Login dan logout</td><td>Admin, Staff</td><td>Must</td><td>Login menggunakan email dan password. Token JWT tidak memiliki masa kedaluwarsa (never) pada konfigurasi saat ini. Logout menghapus sesi lokal.</td></tr>
   <tr><td>F-03</td><td>Dashboard</td><td>Ringkasan operasional</td><td>Admin, Staff</td><td>Must</td><td>Menampilkan total produk, jumlah stok menipis, transaksi hari ini, dan daftar produk stok menipis.</td></tr>
   <tr><td>F-04</td><td>Kategori</td><td>CRUD kategori</td><td>Admin; Staff melihat</td><td>Must</td><td>Admin dapat menambah, mengubah, dan menghapus kategori. Nama kategori unik. Staff hanya dapat melihat.</td></tr>
   <tr><td>F-05</td><td>Supplier</td><td>CRUD supplier</td><td>Admin; Staff melihat</td><td>Must</td><td>Admin mengelola data supplier (nama, telepon, email, alamat). Nama supplier unik. Staff hanya dapat melihat.</td></tr>
@@ -563,7 +563,7 @@
   <tr><td>NF-01</td><td>Performance</td><td>Permintaan API untuk data normal harus selesai dalam waktu kurang dari 1 detik pada lingkungan lokal. Daftar data wajib menggunakan pagination dengan batas maksimal 100 baris.</td></tr>
   <tr><td>NF-02</td><td>Usability</td><td>Antarmuka menggunakan Bahasa Indonesia, warna kontras, tombol minimal 44 px, serta pesan sukses/kesalahan yang jelas.</td></tr>
   <tr><td>NF-03</td><td>Reliability</td><td>Transaksi stok dan penjualan harus atomik. Jika satu langkah gagal, seluruh perubahan dibatalkan. Health check tersedia di <code>/api/health</code>.</td></tr>
-  <tr><td>NF-04</td><td>Security</td><td>Password di-hash bcrypt, JWT berlaku satu hari, endpoint privat memakai Bearer token, role diperiksa, input divalidasi, dan file upload difilter.</td></tr>
+  <tr><td>NF-04</td><td>Security</td><td>Password di-hash bcrypt, JWT tanpa masa kedaluwarsa (never), endpoint privat memakai Bearer token, role diperiksa, input divalidasi, dan file upload difilter.</td></tr>
   <tr><td>NF-05</td><td>Compatibility</td><td>Aplikasi web berjalan pada Chrome, Edge, Firefox, dan Safari modern. Aplikasi Android menggunakan Flutter. iOS/macOS belum menjadi target pengujian.</td></tr>
   <tr><td>NF-06</td><td>Maintainability</td><td>Kode backend dipisahkan menjadi routes, controllers, validators, middlewares, dan utils. Konfigurasi rahasia disimpan di environment variable.</td></tr>
   <tr><td>NF-07</td><td>Scalability</td><td>Connection pool maksimal 10 koneksi, indeks pada kolom pencarian dan foreign key, serta pagination untuk menekan beban data besar.</td></tr>
@@ -621,7 +621,7 @@
 <p>INVENTRA menggunakan arsitektur tiga lapis. Lapisan klien berupa aplikasi Flutter yang berjalan di browser atau Android. Lapisan aplikasi berupa REST API Express yang menangani autentikasi, validasi, aturan bisnis, dan akses database. Lapisan data berupa PostgreSQL. Gambar produk dapat disimpan di Cloudinary atau folder lokal backend.</p>
 <div class="figure">
   <img class="diagram" src="assets/architecture.png" alt="Arsitektur deployment INVENTRA">
-  <p class="caption">Gambar 4.1 Arsitektur deployment INVENTRA</p>
+  <p class="caption">Gambar 4.1 Arsitektur sistem INVENTRA</p>
 </div>
 <p>Komunikasi klien ke API menggunakan HTTPS dan format JSON. Endpoint privat memerlukan header <code>Authorization: Bearer &lt;token&gt;</code>. API mengakses PostgreSQL menggunakan connection pool dan SSL pada lingkungan produksi. Cloudinary diakses melalui HTTPS untuk menyimpan gambar.</p>
 
@@ -989,7 +989,7 @@
 <ol>
   <li>Hubungkan repository GitHub ke Netlify.</li>
   <li>Set base directory <code>flutter</code>, build command <code>bash netlify-build.sh</code>, dan publish directory <code>build/web</code>.</li>
-  <li>Tambahkan environment variable <code>API_BASE_URL</code> yang berisi URL backend Vercel, misalnya <code>https://inventra-api.vercel.app</code>.</li>
+  <li>Tambahkan environment variable <code>API_BASE_URL</code> yang berisi URL backend Vercel, misalnya <code>https://inventra-stok-api.vercel.app</code>.</li>
   <li>Deploy. File <code>netlify.toml</code> sudah mengatur redirect SPA ke <code>index.html</code>.</li>
 </ol>
 <p><b>Vercel (alternatif):</b> build web secara lokal dengan <code>flutter build web --release --dart-define=API_BASE_URL=...</code>, lalu deploy folder <code>build/web</code> sebagai static site. Pastikan URL API menggunakan HTTPS dan endpoint CORS dapat diakses.</p>
@@ -1011,7 +1011,7 @@
   <tr><td><code>DB_SSL</code></td><td>true</td><td>Aktifkan koneksi SSL.</td></tr>
   <tr><td><code>DB_ADMIN_DB</code></td><td>defaultdb</td><td>Database untuk koneksi admin saat <code>db:init</code>.</td></tr>
   <tr><td><code>JWT_SECRET</code></td><td>string acak panjang</td><td>Secret token; wajib diganti.</td></tr>
-  <tr><td><code>JWT_EXPIRES_IN</code></td><td>1d</td><td>Masa berlaku token.</td></tr>
+  <tr><td><code>JWT_EXPIRES_IN</code></td><td>never</td><td>Token tidak kedaluwarsa.</td></tr>
   <tr><td><code>UPLOAD_DIR</code></td><td>uploads</td><td>Folder upload lokal.</td></tr>
   <tr><td><code>CLOUDINARY_*</code></td><td>-</td><td>Kredensial Cloudinary.</td></tr>
   <tr><td><code>API_BASE_URL</code></td><td>https://api.example.com</td><td>Dipakai saat build Flutter web.</td></tr>
@@ -1029,8 +1029,8 @@
 <h3>4.5.9 URL Deployment</h3>
 <table>
   <tr><th style="width:24%;">Layanan</th><th>URL</th><th style="width:18%;">Status</th></tr>
-  <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td><td>Diisi setelah deploy</td></tr>
-  <tr><td>Backend API</td><td>[https://inventra-api.vercel.app]</td><td>Diisi setelah deploy</td></tr>
+  <tr><td>Frontend</td><td>https://silver-cocada-e5a190.netlify.app</td><td>Aktif</td></tr>
+  <tr><td>Backend API</td><td>https://inventra-stok-api.vercel.app</td><td>Aktif</td></tr>
   <tr><td>Repository</td><td>https://github.com/SHIKAMAZU/UMKM-INVENTRA</td><td>Aktif</td></tr>
   <tr><td>Database</td><td>Aiven PostgreSQL (private)</td><td>Kredensial tidak dipublikasikan</td></tr>
 </table>
@@ -1038,7 +1038,7 @@
 <h2>4.6 Keamanan dan Pemeliharaan</h2>
 <ul>
   <li>Password disimpan sebagai hash bcrypt; password asli tidak pernah dikembalikan API.</li>
-  <li>JWT memiliki masa berlaku satu hari dan disimpan di sesi lokal. Untuk pengembangan lanjutan, gunakan secure storage dan refresh token.</li>
+  <li>JWT tidak memiliki masa kedaluwarsa (never) dan disimpan di sesi lokal. Untuk pengembangan lanjutan, gunakan secure storage dan refresh token.</li>
   <li>Endpoint privat memerlukan Bearer token; endpoint admin diperiksa dengan middleware role.</li>
   <li>Validasi input menggunakan Zod, termasuk tipe, panjang, format email, dan batas upload.</li>
   <li>CORS saat ini terbuka untuk memudahkan pengembangan. Produksi disarankan membatasi origin ke domain frontend.</li>
@@ -1099,7 +1099,7 @@ flutter pub get
 flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:3000
 
 # Build web produksi
-flutter build web --release --dart-define=API_BASE_URL=https://inventra-api.vercel.app
+flutter build web --release --dart-define=API_BASE_URL=https://inventra-stok-api.vercel.app
 
 # Pengujian
 cd backend
@@ -1135,8 +1135,8 @@ flutter test</pre>
 <table>
   <tr><th style="width:24%;">Layanan</th><th>URL</th></tr>
   <tr><td>Repository GitHub</td><td>https://github.com/SHIKAMAZU/UMKM-INVENTRA</td></tr>
-  <tr><td>Frontend</td><td>[https://inventra.netlify.app]</td></tr>
-  <tr><td>Backend API</td><td>[https://inventra-api.vercel.app]</td></tr>
+  <tr><td>Frontend</td><td>https://silver-cocada-e5a190.netlify.app</td></tr>
+  <tr><td>Backend API</td><td>https://inventra-stok-api.vercel.app</td></tr>
   <tr><td>Dokumentasi API</td><td><code>/api/health</code> dan <code>backend/api.md</code></td></tr>
 </table>
 
