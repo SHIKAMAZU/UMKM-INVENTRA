@@ -1,5 +1,7 @@
 node_modules/
 .env
+.env.aiven
+.env.*.backup
 uploads/*
 !uploads/.gitkeep
 *.log

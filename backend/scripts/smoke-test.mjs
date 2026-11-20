@@ -148,7 +148,8 @@ async function main() {
 
   const imageUrl = upload.json?.data?.image_url;
   if (imageUrl) {
-    const imageRes = await fetch(`${BASE}${imageUrl}`);
+    const fullImageUrl = /^https?:\/\//i.test(imageUrl) ? imageUrl : `${BASE}${imageUrl}`;
+    const imageRes = await fetch(fullImageUrl);
     check('GET gambar terunggah -> 200', imageRes.status === 200);
   }
 
